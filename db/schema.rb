@@ -30,8 +30,8 @@ ActiveRecord::Schema.define(version: 20160225154905) do
     t.string   "password_digest", null: false
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.integer  "age"
-    t.string   "gender"
+    t.integer  "age",             null: false
+    t.string   "gender",          null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 20160225154905) do
     t.integer  "zipcode"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
-    t.integer  "user_id"
+    t.integer  "user_id",       null: false
   end
 
   add_index "votes", ["user_id"], name: "index_votes_on_user_id", using: :btree
