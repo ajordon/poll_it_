@@ -1,4 +1,4 @@
-class PollController < ProtectedController
+class PollController < ApplicationController
   before_filter :set_poll, only: [:show, :update, :destroy]
   before_filter :set_user, only: [:index]
 

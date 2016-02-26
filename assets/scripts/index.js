@@ -4,4 +4,17 @@
 // var example = require('./example');
 
 // use require without a reference to ensure a file is bundled
-require('./example');
+require('./userManager.js');
+// load sass manifest
+require('../styles/index.scss');
+
+let clearAll = function() {
+
+};
+
+//-------------------When the webpage is finished loading-------------------
+$(document).ready(() => {
+  //Initialze Board
+  $('.sign-out1').hide();
+  $('.change-password1').hide();
+});

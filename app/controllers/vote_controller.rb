@@ -1,4 +1,4 @@
-class VoteController < ApplicationController
+class VoteController < ProtectedController
   before_filter :set_vote, only: [:show]
 
   def create
