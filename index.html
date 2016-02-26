@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Poll Me</title>
+		<script src="vendor.bundle.js" type="text/javascript" charset="utf-8" defer></script>
+    <script src="bundle.js" type="text/javascript" charset="utf-8" defer></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="icon" type="image/png" href="http://i.imgur.com/vdEAEPJ.png?1"  sizes="76x76">
+
+		<div class="piechart">
+			<!--Load the AJAX API-->
+		    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		    <script type="text/javascript">
+
+		      // Load the Visualization API and the corechart package.
+		      google.charts.load('current', {'packages':['corechart']});
+
+		      // Set a callback to run when the Google Visualization API is loaded.
+		      google.charts.setOnLoadCallback(drawChart);
+
+		      // Callback that creates and populates a data table,
+		      // instantiates the pie chart, passes in the data and
+		      // draws it.
+		      function drawChart() {
+
+		        // Create the data table.
+		        var data = new google.visualization.DataTable();
+		        data.addColumn('string', 'Batman');
+		        data.addColumn('number', 'Superman');
+		        data.addRows([
+		          ['Batman', 55],
+		          ['Superman', 50]
+		        ]);
+
+		        // Set chart options
+		        var options = {'title':'Who would win in a fight?',
+		                       'width':700,
+		                       'height':600};
+
+		        // Instantiate and draw our chart, passing in some options.
+		        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+		        chart.draw(data, options);
+		      }
+		    </script>
+	    </div>
+	</head>
+
+	<body>
+		<nav class="navbar navbar-default">
+    	<div class="container-fluid">
+	    	<!-- Brand and toggle get grouped for better mobile display -->
+		    <div class="navbar-header">
+					<a class="navbar-brand">
+			    	<img class="brand" alt="Brand" src="http://i.imgur.com/PoqZWY4.png?1" >
+			    </a>
+		    </div>
+
+			  <!-- Sign In and Sign Up Buttons -->
+			  <button type="button" class="btn btn-default sign-in1" data-toggle="modal" data-target="#myModal1">
+					Sign In
+				</button>
+				<button type="submit" class="btn btn-default sign-up1" data-toggle="modal" data-target="#myModal2">
+					Sign up
+				</button>
+				<button type="submit" class="btn btn-default change-password1" data-toggle="modal" data-target="#myModal3">
+					Change Password
+				</button>
+				<button type="submit" class="btn btn-default sign-out1" data-toggle="modal" data-target="#myModal4">
+					Sign Out
+				</button>
+
+				<!--This is the modal for sign in-->
+				<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        	<div class="modal-dialog" role="document">
+          	<div class="modal-content">
+          		<div class="modal-header">
+            		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            		<h4 class="modal-title" id="myModalLabel">Sign In</h4>
+         	 		</div>
+          		<div class="modal-body">
+            		<form class="form-inline" id="signin-form">
+              		<div class="form-group">
+                		<label class="sr-only" for="signInEmail">Email address</label>
+                		<input type="email" class="form-control" id="exampleInputEmail3" name="credentials[email]" placeholder="Email">
+              		</div>
+              		<div class="form-group">
+                		<label class="sr-only" for="signInPassword">Password</label>
+                		<input type="password" class="form-control" id="signInPassword" name="credentials[password]" placeholder="Password">
+              		</div>
+									<button type="submit" class="btn btn-default sign-in2">Sign In</button>
+            		</form>
+          		</div>
+            </div>
+          </div>
+        </div><!--End of sign in modal-->
+
+				<!--This is the modal for sign up-->
+				<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+              	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Sign Up</h4>
+              </div>
+              <div class="modal-body">
+                <form class="form-inline" id="signup-form">
+	                <div class="form-group">
+	                   <label class="sr-only" for="signUpEmail">Email address</label>
+	                   <input type="email" class="form-control" id="signUpEmail" name="credentials[email]" placeholder="Email">
+	                </div>
+	                <div class="form-group">
+	                	<label class="sr-only" for="signUpPassword1">Password</label>
+	                	<input type="password" class="form-control" id="signUpEmail" name="credentials[password]" placeholder="Password">
+	                </div>
+									<div class="form-group">
+	                	<label class="sr-only" for="signUpPassword2">Confirm Password</label>
+	                    <input type="password" class="form-control" id="signUpPassword" name="credentials[password_confirmation]" placeholder="Confirm Password">
+	                </div>
+									<button type="submit" class="btn btn-default sign-up2">Sign Up</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div><!--End of sign up modal-->
+
+				<!--This is the modal for change-password button that appears after a sucessful sign in-->
+				<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Change Password</h4>
+              </div>
+              <div class="modal-body">
+                <form class="form-inline" id="changepass-form">
+                  <div class="form-group">
+                    <label class="sr-only" for="changePasswordOld">Old Password</label>
+                    <input type="password" class="form-control" id="changePasswordPass1" name="passwords[old]" placeholder="Old Password">
+                  </div>
+                  <div class="form-group">
+                    <label class="sr-only" for="changePasswordNew">New Password</label>
+                    <input type="password" class="form-control" id="changePasswordPass2" name="passwords[new]" placeholder="New Password">
+                  </div>
+				  				<button type="submit" class="btn btn-default change-password2">Change Password</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div><!--End of change password modal-->
+
+				<!--Sign-out Modal-->
+				<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								<h4 class="modal-title" id="myModalLabel">Sign Out</h4>
+							</div>
+							<div class="modal-body">
+								<h4>Are you sure you want to sign out&hellip;?</h4>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default sign-out2">Sign Out</button>
+							</div>
+						</div>
+					</div>
+				</div><!--End of sign-out modal-->
+			</div><!-- /.container-fluid -->
+		</nav>
+
+		<div class="container">
+			<header>
+				<div class="title">
+					<h1>Poll Me!</h1>
+				</div>
+				<div class="showpoll">
+					<div class="poll">Poll: <br /></div>
+				</div>
+			</header>
+
+			<!--Div that will hold the pie chart-->
+    	<div id="chart_div"></div>
+
+			<button class="submit">Submit</button>
+
+			<footer>
+				<h3>Copyright &copy; of Aaron Jordon</h3>
+			</footer>
+		</div>
+	</body>
+</html>

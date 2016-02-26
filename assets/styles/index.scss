@@ -1,17 +1,12 @@
 @import url(https://fonts.googleapis.com/css?family=Bangers);
-// $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
-// @import '~bootstrap-sass/assets/stylesheets/bootstrap';
-//
-//
+$icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
+@import '~bootstrap-sass/assets/stylesheets/bootstrap';
+
 $background: #151469;
 $def-color: #f0f0f0;
 $footer-color: #000;
-// $game-board-height: 50%;
-// $game-board-width: 50%;
-// $game-box-height: $game-board-height / 3;
-// $game-box-width: $game-board-width / 3;
-// $red: #f00;
-// $white: #fff;
+$red: #f00;
+$white: #fff;
 $box-hover: #878787;
 
 body {
