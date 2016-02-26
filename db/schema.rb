@@ -11,10 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160226162117) do
+ActiveRecord::Schema.define(version: 20160226212204) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "options", force: :cascade do |t|
+    t.text     "response"
+    t.integer  "poll_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "options", ["poll_id"], name: "index_options_on_poll_id", using: :btree
 
   create_table "polls", force: :cascade do |t|
     t.text     "question"
@@ -33,27 +42,30 @@ ActiveRecord::Schema.define(version: 20160226162117) do
     t.string   "password_digest", null: false
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.integer  "age",             null: false
-    t.string   "gender",          null: false
+    t.integer  "age"
+    t.string   "gender"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["token"], name: "index_users_on_token", unique: true, using: :btree
 
   create_table "votes", force: :cascade do |t|
-    t.integer  "option1_votes"
-    t.integer  "option2_votes"
     t.integer  "zipcode"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer  "user_id"
     t.integer  "poll_id"
+    t.integer  "option_id"
   end
 
+  add_index "votes", ["option_id"], name: "index_votes_on_option_id", using: :btree
   add_index "votes", ["poll_id"], name: "index_votes_on_poll_id", using: :btree
+  add_index "votes", ["user_id", "poll_id"], name: "index_votes_on_user_id_and_poll_id", unique: true, using: :btree
   add_index "votes", ["user_id"], name: "index_votes_on_user_id", using: :btree
 
+  add_foreign_key "options", "polls"
   add_foreign_key "polls", "users"
+  add_foreign_key "votes", "options"
   add_foreign_key "votes", "polls"
   add_foreign_key "votes", "users"
 end
