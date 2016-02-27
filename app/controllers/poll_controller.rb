@@ -7,7 +7,7 @@ class PollController < ApplicationController
   end
 
   def user_index
-    @poll = user.polls
+    @poll = current_user.polls
     render json: @poll
   end
 
@@ -16,7 +16,7 @@ class PollController < ApplicationController
   end
 
   def create
-    @poll = Poll.net(poll_params)
+    @poll = Poll.new(poll_params)
     @poll.user = @user
 
     if @poll.save
@@ -24,6 +24,11 @@ class PollController < ApplicationController
     else
       rencer json: @poll.errors, status: :unprocessable_entity
     end
+
+    if @user.exists?
+    else
+    end
+
   end
 
   def update

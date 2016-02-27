@@ -1,4 +1,5 @@
 class Poll < ActiveRecord::Base
   has_many :votes
-  belongs_to :user, inverse_of: :created_by
+  has_many :options
+  belongs_to :created_by, inverse_of: :user, class_name: 'User'
 end
