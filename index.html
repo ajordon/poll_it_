@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Poll Me</title>
+		<title>Poll It!</title>
+
 		<script src="vendor.bundle.js" type="text/javascript" charset="utf-8" defer></script>
     <script src="bundle.js" type="text/javascript" charset="utf-8" defer></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -35,7 +36,9 @@
 		        // Set chart options
 		        var options = {'title':'Who would win in a fight?',
 		                       'width':700,
-		                       'height':600};
+		                       'height':600,
+												 	 'backgroundColor':'#1D9ABD'
+												 };
 
 		        // Instantiate and draw our chart, passing in some options.
 		        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
@@ -51,7 +54,7 @@
 	    	<!-- Brand and toggle get grouped for better mobile display -->
 		    <div class="navbar-header">
 					<a class="navbar-brand">
-			    	<img class="brand" alt="Brand" src="http://i.imgur.com/PoqZWY4.png?1" >
+			    	<img class="brand" alt="Brand" src="http://www.proprofs.com/blog/wp-content/uploads/2014/11/ProPorfs-Poll-300x300.jpg" >
 			    </a>
 		    </div>
 
@@ -81,11 +84,11 @@
             		<form class="form-inline" id="signin-form">
               		<div class="form-group">
                 		<label class="sr-only" for="signInEmail">Email address</label>
-                		<input type="email" class="form-control" id="exampleInputEmail3" name="credentials[email]" placeholder="Email">
+                		<input type="email" class="form-control" id="exampleInputEmail3" name="credentials[email]" placeholder="Email"></input>
               		</div>
               		<div class="form-group">
                 		<label class="sr-only" for="signInPassword">Password</label>
-                		<input type="password" class="form-control" id="signInPassword" name="credentials[password]" placeholder="Password">
+                		<input type="password" class="form-control" id="signInPassword" name="credentials[password]" placeholder="Password"></input>
               		</div>
 									<button type="submit" class="btn btn-default sign-in2">Sign In</button>
             		</form>
@@ -106,15 +109,24 @@
                 <form class="form-inline" id="signup-form">
 	                <div class="form-group">
 	                   <label class="sr-only" for="signUpEmail">Email address</label>
-	                   <input type="email" class="form-control" id="signUpEmail" name="credentials[email]" placeholder="Email">
+	                   <input type="email" class="form-control" id="signUpEmail" name="credentials[email]" placeholder="Email"></input>
+	                </div>
+									<div class="form-group">
+	                   <label class="sr-only" for="signUpAge">Age</label>
+	                   <input type="number" class="form-control" id="signUpAge" name="credentials[age]" placeholder="Age"></input>
+	                </div>
+									<div class="btn-group" data-toggle="buttons">
+	                   <label class="sr-only" for="signUpGender">Gender</label>
+	                   <input type="radio" class="form-control" id="signUpGenderM" name="credentials[gender]" autocomplete="off">Male</input>
+										 <input type="radio" class="form-control" id="signUpGenderF" name="credentials[gender]" autocomplete="off">Female</input>
 	                </div>
 	                <div class="form-group">
 	                	<label class="sr-only" for="signUpPassword1">Password</label>
-	                	<input type="password" class="form-control" id="signUpEmail" name="credentials[password]" placeholder="Password">
+	                	<input type="password" class="form-control" id="signUpEmail" name="credentials[password]" placeholder="Password"></input>
 	                </div>
 									<div class="form-group">
 	                	<label class="sr-only" for="signUpPassword2">Confirm Password</label>
-	                    <input type="password" class="form-control" id="signUpPassword" name="credentials[password_confirmation]" placeholder="Confirm Password">
+	                    <input type="password" class="form-control" id="signUpPassword" name="credentials[password_confirmation]" placeholder="Confirm Password"></input>
 	                </div>
 									<button type="submit" class="btn btn-default sign-up2">Sign Up</button>
                 </form>
@@ -135,11 +147,11 @@
                 <form class="form-inline" id="changepass-form">
                   <div class="form-group">
                     <label class="sr-only" for="changePasswordOld">Old Password</label>
-                    <input type="password" class="form-control" id="changePasswordPass1" name="passwords[old]" placeholder="Old Password">
+                    <input type="password" class="form-control" id="changePasswordPass1" name="passwords[old]" placeholder="Old Password"></input>
                   </div>
                   <div class="form-group">
                     <label class="sr-only" for="changePasswordNew">New Password</label>
-                    <input type="password" class="form-control" id="changePasswordPass2" name="passwords[new]" placeholder="New Password">
+                    <input type="password" class="form-control" id="changePasswordPass2" name="passwords[new]" placeholder="New Password"></input>
                   </div>
 				  				<button type="submit" class="btn btn-default change-password2">Change Password</button>
                 </form>
@@ -165,23 +177,73 @@
 						</div>
 					</div>
 				</div><!--End of sign-out modal-->
+
+				<!--Make a poll Modal-->
+				<div class="modal fade" id="makePoll" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								<h4 class="modal-title" id="myModalLabel">Make a Poll</h4>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default sign-out2">Create Poll</button>
+							</div>
+						</div>
+					</div>
+				</div><!--End Make a poll modal-->
 			</div><!-- /.container-fluid -->
 		</nav>
 
-		<div class="container">
+		<div class="container-body">
 			<header>
 				<div class="title">
-					<h1>Poll Me!</h1>
-				</div>
-				<div class="showpoll">
-					<div class="poll">Poll: <br /></div>
+					<h1>Poll It!</h1>
 				</div>
 			</header>
 
-			<!--Div that will hold the pie chart-->
-    	<div id="chart_div"></div>
+			<!--Create Poll Modal-->
+			<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="myModalLabel">Sign Out</h4>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default sign-out2">Submit</button>
+						</div>
+					</div>
+				</div>
+			</div><!--End of sign-out modal-->
 
-			<button class="submit">Submit</button>
+			<!--Find Poll Modal-->
+			<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="myModalLabel">Find Poll</h4>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default find-poll">Submit</button>
+						</div>
+					</div>
+				</div>
+			</div><!--End of find-poll modal-->
+
+			<div class="intro">
+				<h1>Welcome!</h1>
+				<h3>Make a poll and send it to your friends<br /><strong>OR</strong><br />Find an existing poll</h3>
+			</div>
+			<div id="chart_div">
+					<div class="poll">Poll: <br /></div>
+					<button type="submit" class="btn btn-default find-poll-modal">Find another...</button>
+			</div>
+			<div class="poll-buttons">
+				<button type="submit" class="btn btn-default make-poll">Make a Poll</button>
+				<button type="submit" class="btn btn-default find-poll">Find a Poll</button>
+			</div>
 
 			<footer>
 				<h3>Copyright &copy; of Aaron Jordon</h3>

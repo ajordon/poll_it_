@@ -4,4 +4,5 @@ class User < ActiveRecord::Base
   has_many :polls, inverse_of: :created_by, foreign_key: 'created_by_id',
   class_name: 'Poll'
   has_many :votes
+  has_one :vote, through: :poll
 end

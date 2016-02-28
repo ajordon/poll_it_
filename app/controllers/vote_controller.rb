@@ -15,6 +15,9 @@ class VoteController < ProtectedController
     render json: Vote.all
   end
 
+  def show
+  end
+
   private
 
     def set_vote

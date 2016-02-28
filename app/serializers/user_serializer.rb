@@ -1,9 +1,4 @@
 #
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :email, :gender # , :can_edit
-
-  # def can_edit
-  #   # defaults to current user which may be nil
-  #   scope ? scope == object : false
-  # end
+  attributes :id, :user_id, :poll_id, :option_id
 end
