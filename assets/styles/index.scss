@@ -7,6 +7,7 @@ $def-color: #f0f0f0;
 $footer-color: #09303B;
 $red: #f00;
 $white: #fff;
+$black: #000;
 $box-hover: #878787;
 
 body {
@@ -14,6 +15,14 @@ body {
   color: $def-color;
   font-family: 'Kanit', sans-serif;
   font-size: 14px;
+}
+
+.modal-body {
+  color: $black;
+}
+
+.btn-group {
+  display: inline;
 }
 
 .brand {
@@ -61,7 +70,7 @@ h3{
 
 .poll-buttons {
   display: inline-flex;
-  padding-left: 220px;
+  padding-left: 230px;
 }
 
 .container-body {
@@ -89,7 +98,7 @@ h3{
   text-align: center;
   margin: 0 auto;
   padding: 3em;
-  text-shadow: 2px 2px black;
+  text-shadow: 2px 2px $black;
 }
 
 button {
@@ -108,10 +117,8 @@ button {
 }
 
 .find-poll,
-.make-poll {
-  color: black;
-  font-size: 1.5em;
-  border: 1px solid black;
+.create-poll {
+  font-size: 1.3em;
   margin-left: 43%;
 }
 

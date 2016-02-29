@@ -1,5 +1,4 @@
-class VoteController < ProtectedController
-  before_filter :set_vote, only: [:show]
+class VotesController < ProtectedController
 
   def create
     @vote = Vote.new(vote_params)
@@ -15,9 +14,6 @@ class VoteController < ProtectedController
     render json: Vote.all
   end
 
-  def show
-  end
-
   private
 
     def set_vote
@@ -25,6 +21,6 @@ class VoteController < ProtectedController
     end
 
     def vote_params
-      params.require(:vote).permit(:option1_votes, :option2_votes, :post_id)
+      params.require(:vote).permit(:option_id, :poll_id)
     end
 end

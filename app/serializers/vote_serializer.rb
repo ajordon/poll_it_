@@ -1,4 +1,5 @@
 #
 class VoteSerializer < ActiveModel::Serializer
-  attributes :id, :email, :gender # , :can_edit
+  attributes :poll_id, :option_id # , :can_edit
+  has_one :user_id
 end

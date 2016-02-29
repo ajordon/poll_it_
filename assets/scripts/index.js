@@ -145,6 +145,8 @@ $(document).ready(() => {
       $('.sign-up1').hide();
       $('.sign-out1').show();
       $('.change-password1').show();
+      $('.intro').hide();
+      $('.poll-buttons').show();
       myApp.user = data.user;
     }).fail(function(jqxhr) {
       console.error(jqxhr);
@@ -193,6 +195,7 @@ $(document).ready(() => {
       $('.sign-up1').show();
       $('.sign-out1').hide();
       $('.change-password1').hide();
+      $('.intro').show();
     }).fail(function(jqxhr) {
       console.error(jqxhr);
     });

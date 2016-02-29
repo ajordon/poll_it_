@@ -2,9 +2,6 @@
 <html>
 	<head>
 		<title>Poll It!</title>
-
-		<script src="vendor.bundle.js" type="text/javascript" charset="utf-8" defer></script>
-    <script src="bundle.js" type="text/javascript" charset="utf-8" defer></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="icon" type="image/png" href="https://vote.usa.gov/assets/images/vote.png"  sizes="76x76">
 
@@ -72,7 +69,7 @@
 					Sign Out
 				</button>
 
-				<!--This is the modal for sign in-->
+				<!--Sign in Modal-->
 				<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         	<div class="modal-dialog" role="document">
           	<div class="modal-content">
@@ -97,7 +94,7 @@
           </div>
         </div><!--End of sign in modal-->
 
-				<!--This is the modal for sign up-->
+				<!--Sign up Modal-->
 				<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -106,7 +103,7 @@
                 <h4 class="modal-title" id="myModalLabel">Sign Up</h4>
               </div>
               <div class="modal-body">
-                <form class="form-inline" id="signup-form">
+                <form class="form-block" id="signup-form">
 	                <div class="form-group">
 	                   <label class="sr-only" for="signUpEmail">Email address</label>
 	                   <input type="email" class="form-control" id="signUpEmail" name="credentials[email]" placeholder="Email"></input>
@@ -116,7 +113,6 @@
 	                   <input type="number" class="form-control" id="signUpAge" name="credentials[age]" placeholder="Age"></input>
 	                </div>
 									<div class="btn-group" data-toggle="buttons">
-	                   <label class="sr-only" for="signUpGender">Gender</label>
 	                   <input type="radio" class="form-control" id="signUpGenderM" name="credentials[gender]" autocomplete="off">Male</input>
 										 <input type="radio" class="form-control" id="signUpGenderF" name="credentials[gender]" autocomplete="off">Female</input>
 	                </div>
@@ -135,7 +131,7 @@
           </div>
         </div><!--End of sign up modal-->
 
-				<!--This is the modal for change-password button that appears after a sucessful sign in-->
+				<!--Change-password button that appears after a sucessful sign in-->
 				<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -187,7 +183,7 @@
 				</div>
 			</header>
 
-			<!--Create a poll Modal-->
+			<!--Create a Poll Modal-->
 			<div class="modal fade" id="createPollModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
@@ -196,18 +192,23 @@
 							<h4 class="modal-title" id="myModalLabel">Create a Poll</h4>
 						</div>
 						<div class="modal-body">
-							<form class="form-inline" id="changepass-form">
+							<form class="form-block" id="changepass-form">
 								<div class="form-group">
-									<textarea class="form-control" id="poll-question">Whats your question?</textarea>
-									<input type="text" class="form-control" id="poll-question-form" name="poll[question]" placeholder="What smells worse...?"></input>
+									<label class="control-label" for="poll-question-form">Whats your question?</label>
+									<textarea class="form-control" id="poll-question-form" name="poll[question]" placeholder="What smells worse...?"></textarea>
 								</div>
 								<div class="form-group">
-									<label class="sr-only" for="changePasswordNew">Answer 1:</label>
-									<input type="text" class="form-control" id="option1" name="poll.options[response]" placeholder="The hulks feet"></input>
+									<label class="control-label" for="option1">Answer 1:</label>
+									<input type="text" class="form-control" id="option1" name="poll.options[response]" placeholder="The Hulks' feet"></input>
 								</div>
+								<div class="form-group">
+									<label class="control-label" for="option2">Answer 2:</label>
+									<input type="text" class="form-control" id="option2" name="poll.options[response]" placeholder="Iron Mans' armor"></input>
+								</div>
+							</form>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-default create-poll">Create Poll</button>
+							<button type="button" class="btn btn-primary create-poll">Create</button>
 						</div>
 					</div>
 				</div>
@@ -215,14 +216,19 @@
 
 			<!--Find Poll Modal-->
 			<div class="modal fade" id="findPollModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-				<div class="modal-dialog" role="document">
+				<div class="modal-dialog modal-sm" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 							<h4 class="modal-title" id="myModalLabel">Find Poll</h4>
 						</div>
+						<div class="modal-body">
+							<div class="form-group">
+								<input type="text" class="form-control" id="poll-question-form" name="poll[question]" placeholder="Who killed Roger Rabbit...?"></input>
+							</div>
+						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-default find-poll">Submit</button>
+							<button type="button" class="btn btn-primary find-poll">Find</button>
 						</div>
 					</div>
 				</div>
@@ -232,17 +238,21 @@
 				<h1>Welcome!</h1>
 				<h3>Make a poll and send it to your friends<br /><strong>OR</strong><br />Find an existing poll</h3>
 			</div>
+
 			<div id="chart_div">
 					<div class="poll">Poll: <br /></div>
 					<button type="submit" class="btn btn-default find-poll-modal" data-toggle="modal" data-target="#findPollModal">Find another...</button>
 			</div>
+
 			<div class="poll-buttons">
-				<button type="submit" class="btn btn-default make-poll" data-toggle="modal" data-target="#makePollModal">Make a Poll</button>
+				<button type="submit" class="btn btn-default create-poll" data-toggle="modal" data-target="#createPollModal">Create a Poll</button>
 				<button type="submit" class="btn btn-default find-poll" data-toggle="modal" data-target="#findPollModal">Find a Poll</button>
 			</div>
+
 			<div class="poll-link">
 				There you go buddy...<br />
 			</div>
+
 			<div class="user-vote">
 			</div>
 
@@ -250,5 +260,9 @@
 				<h3>Copyright &copy; of Aaron Jordon</h3>
 			</footer>
 		</div>
+
+		<script src="http://localhost:8080/webpack-dev-server.js"></script>
+		<script src="vendor.bundle.js" type="text/javascript" charset="utf-8" defer></script>
+    <script src="bundle.js" type="text/javascript" charset="utf-8" defer></script>
 	</body>
 </html>

@@ -1,13 +1,26 @@
 class OptionsController < ApplicationController
-  def create
 
+  def create
+    @option = Option.new(vote_params)
+
+    if @option.save
+      render json: @option, status: :created
+    else
+      render json: @option.errors, status: :unprocessable_entity
+    end
+  end
+
+  def index
+    render json: Option.all
   end
 
   private
 
-  def option_params
-  end
+    def set_vote
+      @option = Option.find(params[:id])
+    end
 
-  def set_option
-  end
+    def vote_params
+      params.require(:option).permit(:response, :poll_id)
+    end
 end
