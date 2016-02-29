@@ -1,5 +1,5 @@
 class PollsController < ProtectedController
-  # before_action :authenticate :set_user, only: [:show]
+  before_action :set_user, only: [:create]
   skip_before_action :authenticate, only: [:index, :show, :update]
 
   def index
@@ -12,7 +12,11 @@ class PollsController < ProtectedController
   end
 
   def create
-    @poll = Poll.new(poll_params)
+    @poll = if current_user
+      current_user.polls.build(poll_params)
+    else
+      Poll.new(poll_params)
+    end
 
     if @poll.save
       render json: @poll, status: :created
@@ -41,9 +45,9 @@ class PollsController < ProtectedController
 #     @poll = Poll.find(params[:id])
 #   end
 #
-#   def set_user
-#     @user = User.find(params[:user_id])
-#   end
+  def set_user
+    @user = User.find(params[:user_id])
+  end
 #
 #   def poll_params
 #     params.require(:poll).permit(:question)

@@ -1,5 +1,3 @@
 class PollSerializer < ActiveModel::Serializer
-  attributes :question, :date_closed
-  has_one :created_by
-
+  attributes :question, :date_closed, :created_by
 end
