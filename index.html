@@ -6,7 +6,7 @@
 		<script src="vendor.bundle.js" type="text/javascript" charset="utf-8" defer></script>
     <script src="bundle.js" type="text/javascript" charset="utf-8" defer></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="icon" type="image/png" href="http://i.imgur.com/vdEAEPJ.png?1"  sizes="76x76">
+		<link rel="icon" type="image/png" href="https://vote.usa.gov/assets/images/vote.png"  sizes="76x76">
 
 		<div class="piechart">
 			<!--Load the AJAX API-->
@@ -177,21 +177,6 @@
 						</div>
 					</div>
 				</div><!--End of sign-out modal-->
-
-				<!--Make a poll Modal-->
-				<div class="modal fade" id="makePoll" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-					<div class="modal-dialog" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-								<h4 class="modal-title" id="myModalLabel">Make a Poll</h4>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-default sign-out2">Create Poll</button>
-							</div>
-						</div>
-					</div>
-				</div><!--End Make a poll modal-->
 			</div><!-- /.container-fluid -->
 		</nav>
 
@@ -202,23 +187,34 @@
 				</div>
 			</header>
 
-			<!--Create Poll Modal-->
-			<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<!--Create a poll Modal-->
+			<div class="modal fade" id="createPollModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							<h4 class="modal-title" id="myModalLabel">Sign Out</h4>
+							<h4 class="modal-title" id="myModalLabel">Create a Poll</h4>
+						</div>
+						<div class="modal-body">
+							<form class="form-inline" id="changepass-form">
+								<div class="form-group">
+									<textarea class="form-control" id="poll-question">Whats your question?</textarea>
+									<input type="text" class="form-control" id="poll-question-form" name="poll[question]" placeholder="What smells worse...?"></input>
+								</div>
+								<div class="form-group">
+									<label class="sr-only" for="changePasswordNew">Answer 1:</label>
+									<input type="text" class="form-control" id="option1" name="poll.options[response]" placeholder="The hulks feet"></input>
+								</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-default sign-out2">Submit</button>
+							<button type="button" class="btn btn-default create-poll">Create Poll</button>
 						</div>
 					</div>
 				</div>
-			</div><!--End of sign-out modal-->
+			</div><!--End Make a poll modal-->
 
 			<!--Find Poll Modal-->
-			<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal fade" id="findPollModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -238,11 +234,16 @@
 			</div>
 			<div id="chart_div">
 					<div class="poll">Poll: <br /></div>
-					<button type="submit" class="btn btn-default find-poll-modal">Find another...</button>
+					<button type="submit" class="btn btn-default find-poll-modal" data-toggle="modal" data-target="#findPollModal">Find another...</button>
 			</div>
 			<div class="poll-buttons">
-				<button type="submit" class="btn btn-default make-poll">Make a Poll</button>
-				<button type="submit" class="btn btn-default find-poll">Find a Poll</button>
+				<button type="submit" class="btn btn-default make-poll" data-toggle="modal" data-target="#makePollModal">Make a Poll</button>
+				<button type="submit" class="btn btn-default find-poll" data-toggle="modal" data-target="#findPollModal">Find a Poll</button>
+			</div>
+			<div class="poll-link">
+				There you go buddy...<br />
+			</div>
+			<div class="user-vote">
 			</div>
 
 			<footer>

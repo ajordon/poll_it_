@@ -4,7 +4,6 @@
 // var example = require('./example');
 
 // use require without a reference to ensure a file is bundled
-require('./userManager.js');
 // load sass manifest
 require('../styles/index.scss');
 
@@ -12,25 +11,102 @@ window.myApp = {
     baseUrl: 'http://localhost:8080',
 };
 
-let clearAll = function() {
+
+let updateDataChart = function(data) {
 
 };
 
-//-------------------When the webpage is finished loading-------------------
+let displayPollUrl = function(data) {
+
+};
+
+//---------------------When the webpage is finished loading---------------------
 $(document).ready(() => {
-  //Initialze Board
+  //Initialze
   $('.sign-out1').hide();
   $('.change-password1').hide();
   $('#chart_div').hide();
   $('.intro').show();
-  // $('.showpoll').hide();
+  $('.poll-link').hide();
 
+  //----------------------------------------------------------------------------
+  //---------------------------Poll Manager-------------------------------------
+  $('#make-poll').on('submit', function(e) {
+    e.preventDefault();
+    var formData = new FormData(e.target);
+    $.ajax({
+      url: myApp.baseUrl + '/create-poll',
+      method: 'POST',
+      contentType: false,
+      processData: false,
+      data: formData,
+    }).done(function(data) {
+      $('.intro').hide();
+      displayPollUrl(data);
+      $('.poll-link').hide();
+    }).fail(function(jqxhr) {
+      console.error(jqxhr);
+    });
+  });
 
+  $('#find-poll').on('submit', function(e) {
+    $.ajax({
+     url: myApp.baseUrl + '/poll/' + myApp.poll.id,
+     method: 'GET',
+     headers: {
+       Authorization: 'Token token=' + myApp.user.token,
+     }
+   }).done(function(data)  {
+    $('#chart_div').show();
+    updateDataChart(data);
+   }).fail(function(jqxhr) {
+     console.error(jqxhr);
+   });
+  });
 
+  $('#delete-poll').on('submit', function(e) {
+    e.preventDefault();
+    $.ajax({
+      url: myApp.baseUrl + '/poll/' + myApp.user.poll.id,
+      method: 'DELETE',
+      headers: {
+        Authorization: 'Token token=' + myApp.user.token,
+      }
+    }).done(function() {
+      $('#chart_div').hide();
+      $('.intro').show();
+    }).fail(function(jqxhr) {
+      console.error(jqxhr);
+    });
+  });
 
-//------------------------------------------------------------------------------
-//---------------------------User Manager---------------------------------------
-//----------------SIGN UP----------------
+  $('#update-poll').on('submit', function(e) {
+    e.preventDefault();
+    var formData = new FormData(e.target);
+    console.log(formData);
+    $.ajax({
+      url: myApp.baseUrl + '/update-poll/' + myApp.poll.id,
+      method: 'PATCH',
+      headers: {
+        Authorization: 'Token token=' + myApp.user.token,
+      },
+      contentType: false,
+      processData: false,
+      data: formData,
+    }).done(function(data) {
+      updateDataChart(data);
+      $('#chart_div').show();
+      $('.intro').hide();
+      console.log(data);
+    }).fail(function(jqxhr) {
+      console.error(jqxhr);
+    });
+  });
+  //----------------------------------------------------------------------------
+
+  //----------------------------------------------------------------------------
+  //---------------------------User Manager-------------------------------------
+  //----------------SIGN UP----------------
   $('#signup-form').on('submit', function(e) {
     e.preventDefault();
     var formData = new FormData(e.target);
@@ -51,7 +127,7 @@ $(document).ready(() => {
     });
   });
 
-//----------------SIGN IN----------------
+  //----------------SIGN IN----------------
   $('#signin-form').on('submit', function(e) {
     e.preventDefault();
     var formData = new FormData(e.target);
@@ -75,7 +151,7 @@ $(document).ready(() => {
     });
   });
 
-//----------------CHANGE PASSWORD----------------
+  //----------------CHANGE PASSWORD----------------
   $('#changepass-form').on('submit', function(e) {
     e.preventDefault();
     if(!myApp.user) {
@@ -102,7 +178,7 @@ $(document).ready(() => {
     });
   });
 
-//----------------SIGN OUT----------------
+  //----------------SIGN OUT----------------
   $('.sign-out2').on('click', function(e) {
     e.preventDefault();
     $.ajax({
@@ -121,4 +197,5 @@ $(document).ready(() => {
       console.error(jqxhr);
     });
   });
+  //----------------------------------------------------------------------------
 });

@@ -60,7 +60,6 @@ h3{
 }
 
 .poll-buttons {
-  display: block;
   display: inline-flex;
   padding-left: 220px;
 }
@@ -69,6 +68,13 @@ h3{
   margin: auto;
   max-width: 1080px;
   min-height: 600px;
+}
+
+.poll-link {
+  width: 45%;
+  text-align: center;
+  border: 2px solid $background;
+  border-radius: 3px;
 }
 
 .title {
@@ -103,7 +109,6 @@ button {
 
 .find-poll,
 .make-poll {
-
   color: black;
   font-size: 1.5em;
   border: 1px solid black;
@@ -118,17 +123,24 @@ button {
   text-align: center;
   margin: 0 auto;
   width: 50%;
+  height: 35%;
 }
 
 .poll {
   font-size: 1.4em;
 }
 
+strong {
+  margin: 1em;
+  font-size: 1.5em;
+  color: $box-hover;
+}
+
 footer {
   background-color: $footer-color;
   font-size: 9em;
-  margin-top: .6em;
-  padding: .5em;
+  margin-top: .5em;
+  padding: .3em;
   text-align: center;
   color: $white;
 }
