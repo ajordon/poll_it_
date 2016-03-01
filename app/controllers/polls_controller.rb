@@ -25,31 +25,48 @@ class PollsController < ProtectedController
     end
   end
 
-#   def update
-#     @poll = Poll.find(params[:id])
-#
-#     if @poll.update(poll_params)
-#       head :no_content
-#     else
-#       render json: @poll.errors, status: :unprocessable_entity
-#     end
-#   end
-#
-#   def destroy
-#     @poll.destroy
-#     head :no_content
-#   end
-#
-# private
-#   def set_poll
-#     @poll = Poll.find(params[:id])
-#   end
-#
-  def set_user
-    @user = User.find(params[:user_id])
+  def update
+    @poll = if current_user
+      current_user.poll.find(params[:id])
+    else
+      Poll.find(params[:id])
+    end
+
+    if @poll.update(poll_params)
+      head :no_content
+    else
+      render json: @poll.errors, status: :unprocessable_entity
+    end
   end
-#
-#   def poll_params
-#     params.require(:poll).permit(:question)
-#   end
+
+  def destroy
+    @poll = if current_user
+      current_user.poll.find(params[:id])
+      @poll.destroy
+      head :no_content
+    else
+      render json: @poll.errors, status: :unprocessable_entity
+    end
+  end
+
+private
+  def set_poll
+    @poll = if current_user
+      current_user.poll.find(params[:id])
+    else
+      Poll.find(params[:id])
+    end
+  end
+
+  def set_user
+    @user = = if current_user
+      current_user.poll.find(params[:id])
+    else
+      User.find(params[:user_id])
+    end
+  end
+
+  def poll_params
+    params.require(:poll).permit(:question)
+  end
 end

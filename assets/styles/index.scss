@@ -17,12 +17,24 @@ body {
   font-size: 14px;
 }
 
+.bgimage {
+  background-color: transparent;
+  width: 50%;
+  position: relative;
+  margin-left: 20em;
+}
+
 .modal-body {
   color: $black;
 }
 
 .btn-group {
   display: inline;
+}
+
+.radio-inline {
+  padding-top: .6em;
+  padding-bottom: .6em;
 }
 
 .brand {
