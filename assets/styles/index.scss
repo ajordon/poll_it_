@@ -22,6 +22,7 @@ body {
   width: 50%;
   position: relative;
   margin-left: 20em;
+  padding-top: 2em;
 }
 
 .modal-body {
@@ -82,7 +83,7 @@ h3{
 
 .poll-buttons {
   display: inline-flex;
-  padding-left: 230px;
+  width: 95%;
 }
 
 .container-body {
@@ -131,7 +132,7 @@ button {
 .find-poll,
 .create-poll {
   font-size: 1.3em;
-  margin-left: 43%;
+  margin-left: 25%;
 }
 
 .submit-poll:hover {

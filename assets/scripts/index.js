@@ -29,6 +29,8 @@ let createPollComplete = function() {
 
 let findPollComplete = function() {
   $('#chart_div').show();
+  $('#poll-search-bar').val('');
+  $('#findPollModal').mmodal('hide');
 };
 
 let deletePollComplete = function() {
@@ -86,7 +88,7 @@ $(document).ready(() => {
 
   //----------------------------------------------------------------------------
   //---------------------------Poll Manager-------------------------------------
-  $('#create-poll').on('submit', function(e) {
+  $('#create-poll-form').on('submit', function(e) {
     e.preventDefault();
     let formData = new FormData(e.target);
     $.ajax({
@@ -104,13 +106,11 @@ $(document).ready(() => {
     });
   });
 
-  $('#find-poll').on('submit', function(e) {
+  $('.find-poll').on('submit', function(e) {
     $.ajax({
-     url: myApp.baseUrl + '/polls/' + myApp.poll.id,
+     url: myApp.baseUrl + '/poll?search_key=' + $('#poll-search-bar').val(),
      method: 'GET',
-     headers: {
-       Authorization: 'Token token=' + myApp.user.token,
-     }
+     dataType: 'json'
    }).done(function(data) {
      myApp.poll = data.poll;
      findPollComplete();
@@ -120,7 +120,7 @@ $(document).ready(() => {
    });
   });
 
-  $('#delete-poll').on('submit', function(e) {
+  $('.delete-poll').on('submit', function(e) {
     e.preventDefault();
     $.ajax({
       url: myApp.baseUrl + '/polls/' + myApp.poll.id,
@@ -143,9 +143,6 @@ $(document).ready(() => {
     $.ajax({
       url: myApp.baseUrl + '/polls/' + myApp.poll.id,
       method: 'PATCH',
-      headers: {
-        Authorization: 'Token token=' + myApp.user.token,
-      },
       contentType: false,
       processData: false,
       data: formData,
@@ -226,7 +223,7 @@ $(document).ready(() => {
   });
 
   //----------------SIGN OUT----------------
-  $('.sign-out2').on('click', function(e) {
+  $('.signout-form').on('click', function(e) {
     e.preventDefault();
     $.ajax({
       url: myApp.baseUrl + '/sign-out/' + myApp.user.id,

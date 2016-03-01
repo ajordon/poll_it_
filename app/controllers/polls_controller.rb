@@ -3,12 +3,18 @@ class PollsController < ProtectedController
   skip_before_action :authenticate, only: [:index, :show, :update]
 
   def index
-    render json: Poll.all
+    @polls = if params[:search_key].present?
+      Poll.search_by_key(params[:search_key])
+    else
+      Poll.all
+    end
+
+    render json: @polls
   end
 
   def show
-    poll = Poll.find(params[:id])
-    render json: poll
+    @poll = Poll.find(params[:id])
+    render json: @poll
   end
 
   def create
@@ -59,7 +65,7 @@ private
   end
 
   def set_user
-    @user = = if current_user
+    @user = if current_user
       current_user.poll.find(params[:id])
     else
       User.find(params[:user_id])

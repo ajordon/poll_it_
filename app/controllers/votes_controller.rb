@@ -20,7 +20,7 @@ class VotesController < ApplicationController
 
   private
     def set_poll
-      @poll= poll.find(params[:id])
+      @poll = poll.find(params[:id])
     end
 
     def set_vote

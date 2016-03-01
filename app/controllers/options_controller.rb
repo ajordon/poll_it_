@@ -1,10 +1,10 @@
 class OptionsController < ApplicationController
-  before_filter :set_vote, only: [:index, :create]
   before_filter :set_option, only: [:index]
+  before_filter :set_poll, only: [:index, :create]
 
   def create
-    @option = Option.new(vote_params)
-    @option.vote = @vote
+    @option = Option.new(option_params)
+    @option.poll = @poll
 
     if @option.save
       render json: @option, status: :created
@@ -14,13 +14,13 @@ class OptionsController < ApplicationController
   end
 
   def index
-    @option = @vote.options
-    render json: @options
+    @option = @poll.options
+    render json: @option
   end
 
   private
-    def set_vote
-      @vote = vote.find(params[:id])
+    def set_poll
+      @poll = poll.find(params[:id])
     end
 
     def set_option
