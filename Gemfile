@@ -16,6 +16,7 @@ group :development, :test do
   gem 'pry', '~> 0.10'
   gem 'byebug', '~> 8.0'
   gem 'pry-byebug', '~> 3.3.0'
+  gem 'dotenv-rails'
 end
 
 group :development do
