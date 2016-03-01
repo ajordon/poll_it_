@@ -21,7 +21,7 @@ body {
   background-color: transparent;
   width: 50%;
   position: relative;
-  margin-left: 20em;
+  margin-left: 18em;
   padding-top: 2em;
 }
 
@@ -104,6 +104,7 @@ h3{
   text-align: left;
   font-style: italic;
   text-decoration: underline;
+  padding-left: 2em;
 }
 
 .intro {
@@ -133,6 +134,17 @@ button {
 .create-poll {
   font-size: 1.3em;
   margin-left: 25%;
+}
+
+.find-poll-btn,
+.create-poll-btn {
+  font-size: 1.3em;
+  margin-left: 30%;
+  margin-top: 1em;
+}
+
+.create-poll-btn {
+  margin-left: 40%;
 }
 
 .submit-poll:hover {

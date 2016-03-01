@@ -18,6 +18,11 @@ class OptionsController < ApplicationController
     render json: @option
   end
 
+  def destroy
+    @option.destroy
+    head :no_content
+  end
+
   private
     def set_poll
       @poll = poll.find(params[:id])

@@ -13,24 +13,41 @@ const myApp = {
 
 
 let updateDataChart = function(data) {
-
+  $('.poll-id').append(myApp.poll.id);
 };
 
 let displayPollUrl = function(data) {
-
+  $('.poll-link').innerHTML = myApp.baseUrl + "/polls/" + data.poll.id;
 };
 
 //---------------------Webpage flow---------------------
-let createPollComplete = function() {
+let createPollComplete = function(formData) {
   $('.intro').hide();
   $('.poll-link').hide();
   $('.poll-link').hide();
+  // let fd = formData.
+  // $.ajax({
+  //   url: myApp.baseUrl + '/polls/' + myApp. 'maoptions',
+  //   method: 'POST',
+  //   contentType: false,
+  //   processData: false,
+  //   data: formData,
+  // }).done(function(data) {
+  //   myApp.poll = data.poll;
+  // }).fail(function(jqxhr) {
+  //   console.error(jqxhr);
+  // });
 };
 
 let findPollComplete = function() {
-  $('#chart_div').show();
   $('#poll-search-bar').val('');
-  $('#findPollModal').mmodal('hide');
+  $('#findPollModal').modal('hide');
+  $('.intro').hide();
+  $('.bgimage').hide();
+  $('.find-poll').hide();
+  $('.create-poll').hide();
+  $('#chart_div').show();
+  $('.find-poll-modal').show();
 };
 
 let deletePollComplete = function() {
@@ -53,6 +70,9 @@ let signInComplete = function() {
   $('.intro').hide();
   $('.instructions').show();
   $('.poll-buttons').show();
+  $('.bgimage').hide();
+  $('.find-poll').hide();
+  $('.create-poll').css("margin-left", "25em");
 };
 
 let signUpComplete = function() {
@@ -88,6 +108,7 @@ $(document).ready(() => {
 
   //----------------------------------------------------------------------------
   //---------------------------Poll Manager-------------------------------------
+  //----------------Create Poll----------------
   $('#create-poll-form').on('submit', function(e) {
     e.preventDefault();
     let formData = new FormData(e.target);
@@ -98,28 +119,32 @@ $(document).ready(() => {
       processData: false,
       data: formData,
     }).done(function(data) {
-      myApp.user = data.user;
-      createPollComplete();
-      displayPollUrl(data);
+      myApp.poll = data.poll;
+      createPollComplete(formData);
+      $('.poll-link').inneHTML = myApp.baseUrl + "/polls/" + myApp.poll.id;
     }).fail(function(jqxhr) {
       console.error(jqxhr);
     });
   });
 
-  $('.find-poll').on('submit', function(e) {
+  //----------------Find Poll----------------
+  $('#find-poll-form').on('submit', function(e) {
+    e.preventDefault();
     $.ajax({
-     url: myApp.baseUrl + '/poll?search_key=' + $('#poll-search-bar').val(),
+     url: myApp.baseUrl + '/polls?search_key=' + $('#poll-search-bar').val(),
      method: 'GET',
      dataType: 'json'
    }).done(function(data) {
      myApp.poll = data.poll;
+     console.log(data);
      findPollComplete();
-    updateDataChart(data);
+     updateDataChart(data);
    }).fail(function(jqxhr) {
      console.error(jqxhr);
    });
   });
 
+  //----------------Delete Poll----------------
   $('.delete-poll').on('submit', function(e) {
     e.preventDefault();
     $.ajax({
@@ -136,6 +161,7 @@ $(document).ready(() => {
     });
   });
 
+  //----------------Update Poll----------------
   $('#update-poll').on('submit', function(e) {
     e.preventDefault();
     let formData = new FormData(e.target);
@@ -171,9 +197,9 @@ $(document).ready(() => {
       data: formData,
     }).done(function(data) {
       myApp.user = data.user;
-      console.log(data);
-      console.log("Welcome " + data.user.email);
       signInComplete();
+      let pollListingTemplate = require('./poll-listing.handlebars');
+      // $('.user-polls').append(pollListingTemplate({myApp.user.poll}));
     }).fail(function(jqxhr) {
       console.error(jqxhr);
     });
@@ -216,6 +242,7 @@ $(document).ready(() => {
       processData: false,
       data: formData,
     }).done(function(data) {
+      myApp.user = data.user;
       changePassComplete();
     }).fail(function(jqxhr) {
       console.error(jqxhr);

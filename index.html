@@ -32,8 +32,8 @@
 
 		        // Set chart options
 		        var options = {'title':'Who would win in a fight?',
-		                       'width':700,
-		                       'height':600,
+		                       'width':600,
+		                       'height':500,
 												 	 'backgroundColor':'#1D9ABD'
 												 };
 
@@ -173,7 +173,7 @@
 						</div>
 					</div>
 				</div><!--End of sign-out modal-->
-			</div><!-- /.container-fluid -->
+			</div><!-- /.container-fluid -->1
 		</nav>
 
 		<div class="container-body">
@@ -205,10 +205,8 @@
 									<label class="control-label" for="option2">Answer 2:</label>
 									<input type="text" class="form-control" id="option2" name="poll.options[response]" placeholder="Iron Mans' armor"></input>
 								</div>
+								<button type="submit" class="btn btn-primary create-poll-btn">Create</button>
 							</form>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-primary create-poll">Create</button>
 						</div>
 					</div>
 				</div>
@@ -223,12 +221,10 @@
 							<h4 class="modal-title" id="myModalLabel">Find Poll</h4>
 						</div>
 						<div class="modal-body">
-							<div class="form-group">
+							<form class="form-group" id="find-poll-form">
 								<input type="text" class="form-control" id="poll-search-bar" name="poll[question]" placeholder="Who killed Roger Rabbit...?"></input>
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-primary find-poll">Search</button>
+								<button type="submit" class="btn btn-primary find-poll-btn">Search</button>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -245,7 +241,7 @@
 			</div>
 
 			<div id="chart_div">
-					<div class="poll">Poll: <br /></div>
+					<div class="poll-id"></div>
 					<button type="submit" class="btn btn-default find-poll-modal" data-toggle="modal" data-target="#findPollModal">Find another...</button>
 			</div>
 

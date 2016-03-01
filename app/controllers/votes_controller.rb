@@ -18,6 +18,11 @@ class VotesController < ApplicationController
     render json: @vote
   end
 
+  def destroy
+    @vote.destroy
+    head :no_content
+  end
+
   private
     def set_poll
       @poll = poll.find(params[:id])
