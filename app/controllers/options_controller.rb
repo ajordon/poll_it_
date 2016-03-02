@@ -1,6 +1,6 @@
 class OptionsController < ApplicationController
-  before_filter :set_option, only: [:index]
-  before_filter :set_poll, only: [:index, :create]
+  before_filter :set_option, only: [:destroy, :create]
+  before_filter :set_poll, only: [:index, :show, :create]
 
   def create
     @option = Option.new(option_params)
@@ -13,9 +13,10 @@ class OptionsController < ApplicationController
     end
   end
 
+  # /polls/:poll_id/options
   def index
-    @option = @poll.options
-    render json: @option
+    @options = @poll.options
+    render json: @options
   end
 
   def destroy
@@ -25,7 +26,7 @@ class OptionsController < ApplicationController
 
   private
     def set_poll
-      @poll = poll.find(params[:id])
+      @poll = Poll.find(params[:poll_id])
     end
 
     def set_option

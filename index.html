@@ -199,11 +199,11 @@
 								</div>
 								<div class="form-group">
 									<label class="control-label" for="option1">Answer 1:</label>
-									<input type="text" class="form-control" id="option1" name="poll.options[response]" placeholder="The Hulks' feet"></input>
+									<input type="text" class="form-control" id="option1" name="option1[response]" placeholder="The Hulks' feet"></input>
 								</div>
 								<div class="form-group">
 									<label class="control-label" for="option2">Answer 2:</label>
-									<input type="text" class="form-control" id="option2" name="poll.options[response]" placeholder="Iron Mans' armor"></input>
+									<input type="text" class="form-control" id="option2" name="option2[response]" placeholder="Iron Mans' armor"></input>
 								</div>
 								<button type="submit" class="btn btn-primary create-poll-btn">Create</button>
 							</form>
@@ -230,6 +230,24 @@
 				</div>
 			</div><!--End of find-poll modal-->
 
+			<!--Submit Vote Modal-->
+			<div class="modal fade" id="submitVoteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog modal-sm" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="submitVoteLabel">Question: </h4>
+						</div>
+						<div class="modal-body">
+							<form class="form-group" id="find-poll-form">
+								<input type="text" class="form-control" id="poll-search-bar" name="poll[question]" placeholder="Who killed Roger Rabbit...?"></input>
+								<button type="submit" class="btn btn-primary find-poll-btn">Submit</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div><!--End of submit-poll modal-->
+
 			<picture class"bgimage">
 				<img class="bgimage" src="http://rack.1.mshcdn.com/media/ZgkyMDE1LzEwLzMwLzE4L3R3aXR0ZXJwb2xsLjgwYzZmLmpwZwpwCXRodW1iCTk1MHg1MzQjCmUJanBn/5e43b398/e53/twitter-polls.jpg" height=250px>
 			</picture>
@@ -255,9 +273,16 @@
 			</div>
 
 			<div class="user-vote">
+				<div class="user-vote-poll"></div>
+				<div class="user-vote-options">
+					<div class="radio-inline">
+						 <input type="radio" class="form-control" id="selectOption1" name="option[response]" autocomplete="off" value="option1"></input>
+						 <input type="radio" class="form-control" id="selectOption2" name="option[response]" autocomplete="off" value="option2"></input>
+					</div>
 			</div>
 
 			<div class="user-polls">
+				Created Polls:
 			</div>
 
 			<footer>

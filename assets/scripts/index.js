@@ -25,18 +25,11 @@ let createPollComplete = function(formData) {
   $('.intro').hide();
   $('.poll-link').hide();
   $('.poll-link').hide();
-  // let fd = formData.
-  // $.ajax({
-  //   url: myApp.baseUrl + '/polls/' + myApp. 'maoptions',
-  //   method: 'POST',
-  //   contentType: false,
-  //   processData: false,
-  //   data: formData,
-  // }).done(function(data) {
-  //   myApp.poll = data.poll;
-  // }).fail(function(jqxhr) {
-  //   console.error(jqxhr);
-  // });
+  $('#createPollModal').modal('hide');
+  $('.bgimage').hide();
+  $('.find-poll').hide();
+  $('.create-poll').hide();
+  $('.user-vote').show();
 };
 
 let findPollComplete = function() {
@@ -73,6 +66,7 @@ let signInComplete = function() {
   $('.bgimage').hide();
   $('.find-poll').hide();
   $('.create-poll').css("margin-left", "25em");
+  $('.user-polls').show();
 };
 
 let signUpComplete = function() {
@@ -120,6 +114,7 @@ $(document).ready(() => {
       data: formData,
     }).done(function(data) {
       myApp.poll = data.poll;
+      console.log(data);
       createPollComplete(formData);
       $('.poll-link').inneHTML = myApp.baseUrl + "/polls/" + myApp.poll.id;
     }).fail(function(jqxhr) {
@@ -154,7 +149,7 @@ $(document).ready(() => {
         Authorization: 'Token token=' + myApp.user.token,
       }
     }).done(function() {
-      myApp.user = data.user;
+      myApp.poll = data.poll;
       deletePollComplete();
     }).fail(function(jqxhr) {
       console.error(jqxhr);
@@ -199,7 +194,8 @@ $(document).ready(() => {
       myApp.user = data.user;
       signInComplete();
       let pollListingTemplate = require('./poll-listing.handlebars');
-      // $('.user-polls').append(pollListingTemplate({myApp.user.poll}));
+      let polls = myApp.poll;
+      $('.user-polls').append(pollListingTemplate({polls}));
     }).fail(function(jqxhr) {
       console.error(jqxhr);
     });

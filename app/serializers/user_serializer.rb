@@ -1,4 +1,4 @@
 #
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :user_id, :poll_id, :option_id
+  attributes :id, :email, :age, :gender
 end

@@ -6,7 +6,7 @@ class Poll < ActiveRecord::Base
 
   def self.search_by_key(key)
     if key
-      # add question make to the end if not present
+      # add question mark to the end if not present
       if !key.include?('?')
         key.concat('?')
       end

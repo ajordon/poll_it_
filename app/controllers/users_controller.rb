@@ -1,5 +1,5 @@
 #
-class UsersController < ApplicationController
+class UsersController < ProtectedController
   skip_before_action :authenticate, only: [:signup, :signin]
 
   # POST '/sign-up'
@@ -49,8 +49,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    user = User.find(params[:id])
-    render json: user
+    @user = User.find(params[:id])
+    render json: @user
   end
 
   def update
