@@ -5,8 +5,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="icon" type="image/png" href="https://vote.usa.gov/assets/images/vote.png" sizes="76x76">
 
-		<div class="piechart">
-			<!--Load the AJAX API-->
+		<!-- <div class="piechart">
+			Load the AJAX API
 		    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 		    <script type="text/javascript">
 
@@ -42,7 +42,7 @@
 		        chart.draw(data, options);
 		      }
 		    </script>
-	    </div>
+	    </div> -->
 	</head>
 
 	<body>
@@ -230,7 +230,7 @@
 				</div>
 			</div><!--End of find-poll modal-->
 
-			<!--Submit Vote Modal-->
+			<!--Submit Vote Modal
 			<div class="modal fade" id="submitVoteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 				<div class="modal-dialog modal-sm" role="document">
 					<div class="modal-content">
@@ -241,12 +241,13 @@
 						<div class="modal-body">
 							<form class="form-group" id="find-poll-form">
 								<input type="text" class="form-control" id="poll-search-bar" name="poll[question]" placeholder="Who killed Roger Rabbit...?"></input>
+
 								<button type="submit" class="btn btn-primary find-poll-btn">Submit</button>
 							</form>
 						</div>
 					</div>
 				</div>
-			</div><!--End of submit-poll modal-->
+			</div>End of submit-poll modal-->
 
 			<picture class"bgimage">
 				<img class="bgimage" src="http://rack.1.mshcdn.com/media/ZgkyMDE1LzEwLzMwLzE4L3R3aXR0ZXJwb2xsLjgwYzZmLmpwZwpwCXRodW1iCTk1MHg1MzQjCmUJanBn/5e43b398/e53/twitter-polls.jpg" height=250px>
@@ -274,11 +275,15 @@
 
 			<div class="user-vote">
 				<div class="user-vote-poll"></div>
-				<div class="user-vote-options">
-					<div class="radio-inline">
-						 <input type="radio" class="form-control" id="selectOption1" name="option[response]" autocomplete="off" value="option1"></input>
-						 <input type="radio" class="form-control" id="selectOption2" name="option[response]" autocomplete="off" value="option2"></input>
+				<form class="form-block" id="update-poll-form">
+					<div class="form-group">
+						<div class="radio-inline">
+							 <input type="radio" class="form-control" id="selectOption1" name="poll[options0]" autocomplete="off" value="0">Option1</input>
+							 <input type="radio" class="form-control" id="selectOption2" name="poll[options1]" autocomplete="off" value="1">Option2</input>
+							 <label>
+						</div>
 					</div>
+				</form>
 			</div>
 
 			<div class="user-polls">

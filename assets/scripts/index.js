@@ -11,9 +11,33 @@ const myApp = {
     baseUrl: 'http://localhost:3000',
 };
 
+// data.polls[0].options.map(function(option){ return option.response; }); returns ["Batmand", "Superman"]
+let updateDataChart = function(poll) {
+  // $('.poll-id').append(poll.id);
+  let count0, count1 = 0;
+  for (let i = 0;i < poll.votes.options[0].length;i++) {
+    count0 += 1;
+  }
+  for (let i = 0;i < poll.votes.options[1].length;i++) {
+    count1 += 1;
+  }
 
-let updateDataChart = function(data) {
-  $('.poll-id').append(myApp.poll.id);
+  google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      let data = new google.visualization.DataTable();
+      data.addColumn('string', poll.options[0].response);
+      data.addColumn('number', poll.options[1].response);
+      data.addRows([poll.options[0].response, count0],
+                    [poll.options[1].response, count1]);
+      let options = {
+        'title': poll.question,
+        'width':700,
+        'height':600,
+        'backgroundColor':'#1D9ABD'
+      };
+      var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+      chart.draw(data, options);
+    }
 };
 
 let displayPollUrl = function(data) {
@@ -41,6 +65,7 @@ let findPollComplete = function() {
   $('.create-poll').hide();
   $('#chart_div').show();
   $('.find-poll-modal').show();
+  $('.user-vote').show();
 };
 
 let deletePollComplete = function() {
@@ -67,6 +92,24 @@ let signInComplete = function() {
   $('.find-poll').hide();
   $('.create-poll').css("margin-left", "25em");
   $('.user-polls').show();
+  $('.user-vote').show();
+  let pollListingTemplate = require('./poll-listing.handlebars');
+  // let formData = new FormData();
+   $.ajax({
+    url: myApp.baseUrl + '/polls?search_key=' + myApp.user.id,
+    method: 'GET',
+      headers: {
+        Authorization: 'Token token=' + myApp.user.token,
+      }
+  }).done(function(data) {
+   myApp.user = data.user;
+  }).fail(function(jqxhr) {
+   console.error(jqxhr);
+  });
+
+  let polls = myApp.user.polls;
+  $('.user-polls').append(pollListingTemplate({polls}));
+
 };
 
 let signUpComplete = function() {
@@ -99,6 +142,8 @@ $(document).ready(() => {
   $('#chart_div').hide();
   $('.intro').show();
   $('.poll-link').hide();
+  $('.user-polls').hide();
+  $('.user-vote').hide();
 
   //----------------------------------------------------------------------------
   //---------------------------Poll Manager-------------------------------------
@@ -133,7 +178,7 @@ $(document).ready(() => {
      myApp.poll = data.poll;
      console.log(data);
      findPollComplete();
-     updateDataChart(data);
+     updateDataChart(data.polls[0]);
    }).fail(function(jqxhr) {
      console.error(jqxhr);
    });
@@ -168,10 +213,9 @@ $(document).ready(() => {
       processData: false,
       data: formData,
     }).done(function(data) {
-      myApp.poll = data.poll;
-      updateDataChart(data);
+      myApp.poll.votes = data.poll.votes;
+      updateDataChart(data.polls[0]);
       updatePollComplete();
-      console.log(data);
     }).fail(function(jqxhr) {
       console.error(jqxhr);
     });
@@ -193,9 +237,6 @@ $(document).ready(() => {
     }).done(function(data) {
       myApp.user = data.user;
       signInComplete();
-      let pollListingTemplate = require('./poll-listing.handlebars');
-      let polls = myApp.poll;
-      $('.user-polls').append(pollListingTemplate({polls}));
     }).fail(function(jqxhr) {
       console.error(jqxhr);
     });
