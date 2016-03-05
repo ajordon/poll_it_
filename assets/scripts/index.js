@@ -7,28 +7,46 @@
 // load sass manifest
 require('../styles/index.scss');
 
+const UI = require('./ui.js');
+
 const myApp = {
     baseUrl: 'http://localhost:3000',
 };
 
 // data.polls[0].options.map(function(option){ return option.response; }); returns ["Batmand", "Superman"]
 let updateDataChart = function(poll) {
-  // $('.poll-id').append(poll.id);
-  let count0, count1 = 0;
-  for (let i = 0;i < poll.votes.options[0].length;i++) {
-    count0 += 1;
-  }
-  for (let i = 0;i < poll.votes.options[1].length;i++) {
-    count1 += 1;
+  // google.charts.load('current', {packages: ['corechart']});
+  $('.poll-id').text('Poll#: ' + poll.id);
+  let op0VoteCount = 0;
+  let op1VoteCount = 0;
+
+  for (let i = 0;i < poll.votes.length;i++) {
+    if (poll.options[0].id === poll.votes[i].option_id) {
+      op0VoteCount++;
+    }
+    else if (poll.options[1].id === poll.votes[i].option_id) {
+      op1VoteCount++;
+    }
+    else {
+      op0VoteCount = op0VoteCount;
+      op1VoteCount = op1VoteCount;
+    }
   }
 
+  let arr0 = [poll.options[0].response, op0VoteCount];
+  let arr1 = [poll.options[1].response, op1VoteCount];
+
   google.charts.setOnLoadCallback(drawChart);
+
     function drawChart() {
+
       let data = new google.visualization.DataTable();
       data.addColumn('string', poll.options[0].response);
       data.addColumn('number', poll.options[1].response);
-      data.addRows([poll.options[0].response, count0],
-                    [poll.options[1].response, count1]);
+      data.addRows([
+                    arr0,
+                    arr1
+                  ]);
       let options = {
         'title': poll.question,
         'width':700,
@@ -45,7 +63,7 @@ let displayPollUrl = function(data) {
 };
 
 //---------------------Webpage flow---------------------
-let createPollComplete = function(formData) {
+let createPollComplete = function(data) {
   $('.intro').hide();
   $('.poll-link').hide();
   $('.poll-link').hide();
@@ -54,30 +72,9 @@ let createPollComplete = function(formData) {
   $('.find-poll').hide();
   $('.create-poll').hide();
   $('.user-vote').show();
+  $('#user-vote-option0').append(data.poll.options[0].response); // FIX ME - IDs must match HTML
+  $('#user-vote-option1').append(data.poll.options[1].response); // FIX ME
 };
-
-let findPollComplete = function() {
-  $('#poll-search-bar').val('');
-  $('#findPollModal').modal('hide');
-  $('.intro').hide();
-  $('.bgimage').hide();
-  $('.find-poll').hide();
-  $('.create-poll').hide();
-  $('#chart_div').show();
-  $('.find-poll-modal').show();
-  $('.user-vote').show();
-};
-
-let deletePollComplete = function() {
-  $('#chart_div').hide();
-  $('.intro').show();
-};
-
-let updatePollComplete = function() {
-  $('#chart_div').show();
-  $('.intro').hide();
-};
-
 
 let signInComplete = function() {
   $('#myModal1').modal('hide');
@@ -92,7 +89,12 @@ let signInComplete = function() {
   $('.find-poll').hide();
   $('.create-poll').css("margin-left", "25em");
   $('.user-polls').show();
-  $('.user-vote').show();
+  $('.user-vote').hide();
+  // $('#option0').hide();   //THIS LINE DOES NOTHING
+  // SO FAR SO GOOD
+  // $('#option1').hide();
+  // BROKEN!!
+
   let pollListingTemplate = require('./poll-listing.handlebars');
   // let formData = new FormData();
    $.ajax({
@@ -109,41 +111,20 @@ let signInComplete = function() {
 
   let polls = myApp.user.polls;
   $('.user-polls').append(pollListingTemplate({polls}));
-
 };
-
-let signUpComplete = function() {
-  $('#myModal2').modal('hide');
-  $('.sign-up1').hide();
-  $('.change-password1').hide();
-  $('.sign-out1').hide();
-};
-
-let changePassComplete = function() {
-  console.log("Password changed");
-  $('#myModal3').modal('hide');
-};
-
-let signOutComplete = function() {
-  $('#myModal4').modal('hide');
-  $('.sign-in1').show();
-  $('.sign-up1').show();
-  $('.sign-out1').hide();
-  $('.change-password1').hide();
-  $('.intro').show();
-};
-//------------------------------------------------------------------------------
 
 //---------------------When the webpage is finished loading---------------------
 $(document).ready(() => {
   //Initialze
   $('.sign-out1').hide();
   $('.change-password1').hide();
-  $('#chart_div').hide();
+  $('.piechart').hide();
   $('.intro').show();
   $('.poll-link').hide();
   $('.user-polls').hide();
   $('.user-vote').hide();
+  $('.find-poll-modal').hide();
+  google.charts.load('current', {packages: ['corechart']});
 
   //----------------------------------------------------------------------------
   //---------------------------Poll Manager-------------------------------------
@@ -160,8 +141,8 @@ $(document).ready(() => {
     }).done(function(data) {
       myApp.poll = data.poll;
       console.log(data);
-      createPollComplete(formData);
-      $('.poll-link').inneHTML = myApp.baseUrl + "/polls/" + myApp.poll.id;
+      createPollComplete(data);
+      $('.user-vote').show();
     }).fail(function(jqxhr) {
       console.error(jqxhr);
     });
@@ -177,7 +158,7 @@ $(document).ready(() => {
    }).done(function(data) {
      myApp.poll = data.poll;
      console.log(data);
-     findPollComplete();
+     UI.findPollComplete();
      updateDataChart(data.polls[0]);
    }).fail(function(jqxhr) {
      console.error(jqxhr);
@@ -195,7 +176,7 @@ $(document).ready(() => {
       }
     }).done(function() {
       myApp.poll = data.poll;
-      deletePollComplete();
+      UI.deletePollComplete();
     }).fail(function(jqxhr) {
       console.error(jqxhr);
     });
@@ -215,13 +196,12 @@ $(document).ready(() => {
     }).done(function(data) {
       myApp.poll.votes = data.poll.votes;
       updateDataChart(data.polls[0]);
-      updatePollComplete();
+      UI.updatePollComplete();
+      // $('.poll-link').inneHTML = myApp.baseUrl + "/polls/" + myApp.poll.id;
     }).fail(function(jqxhr) {
       console.error(jqxhr);
     });
   });
-  //----------------------------------------------------------------------------
-
   //----------------------------------------------------------------------------
   //---------------------------User Manager-------------------------------------
   //----------------SIGN IN----------------
@@ -254,7 +234,7 @@ $(document).ready(() => {
       data: formData,
     }).done(function(data) {
       myApp.user = data.user;
-      signUpComplete();
+      UI.signUpComplete();
     }).fail(function(jqxhr) {
       console.error(jqxhr);
     });
@@ -280,7 +260,7 @@ $(document).ready(() => {
       data: formData,
     }).done(function(data) {
       myApp.user = data.user;
-      changePassComplete();
+      UI.changePassComplete();
     }).fail(function(jqxhr) {
       console.error(jqxhr);
     });
@@ -294,12 +274,11 @@ $(document).ready(() => {
       method: 'DELETE',
       headers: {
         Authorization: 'Token token=' + myApp.user.token,
-      }
+      },
     }).done(function() {
-      signOutComplete();
+      UI.signOutComplete();
     }).fail(function(jqxhr) {
       console.error(jqxhr);
     });
   });
-  //----------------------------------------------------------------------------
 });

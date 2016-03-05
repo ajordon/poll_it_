@@ -1,5 +1,5 @@
 class VotesController < ApplicationController
-  before_filter :set_vote, only: [:index]
+  before_filter :set_vote, only: [:index, :create, :destroy]
   before_filter :set_poll, only: [:index, :create]
 
   def create
@@ -13,9 +13,10 @@ class VotesController < ApplicationController
     end
   end
 
+  # /polls/:poll_id/votes
   def index
-    @vote = @poll.votes
-    render json: @vote
+    @votes = @poll.votes
+    render json: @votes
   end
 
   def destroy
@@ -25,7 +26,7 @@ class VotesController < ApplicationController
 
   private
     def set_poll
-      @poll = poll.find(params[:id])
+      @poll = Poll.find(params[:poll_id])
     end
 
     def set_vote

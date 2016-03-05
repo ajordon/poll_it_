@@ -4,45 +4,7 @@
 		<title>Poll It!</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="icon" type="image/png" href="https://vote.usa.gov/assets/images/vote.png" sizes="76x76">
-
-		<!-- <div class="piechart">
-			Load the AJAX API
-		    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-		    <script type="text/javascript">
-
-		      // Load the Visualization API and the corechart package.
-		      google.charts.load('current', {'packages':['corechart']});
-
-		      // Set a callback to run when the Google Visualization API is loaded.
-		      google.charts.setOnLoadCallback(drawChart);
-
-		      // Callback that creates and populates a data table,
-		      // instantiates the pie chart, passes in the data and
-		      // draws it.
-		      function drawChart() {
-
-		        // Create the data table.
-		        var data = new google.visualization.DataTable();
-		        data.addColumn('string', 'Batman');
-		        data.addColumn('number', 'Superman');
-		        data.addRows([
-		          ['Batman', 55],
-		          ['Superman', 50]
-		        ]);
-
-		        // Set chart options
-		        var options = {'title':'Who would win in a fight?',
-		                       'width':600,
-		                       'height':500,
-												 	 'backgroundColor':'#1D9ABD'
-												 };
-
-		        // Instantiate and draw our chart, passing in some options.
-		        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-		        chart.draw(data, options);
-		      }
-		    </script>
-	    </div> -->
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	</head>
 
 	<body>
@@ -199,7 +161,7 @@
 								</div>
 								<div class="form-group">
 									<label class="control-label" for="option1">Answer 1:</label>
-									<input type="text" class="form-control" id="option1" name="option1[response]" placeholder="The Hulks' feet"></input>
+									<input type="text" class="form-control" id="option1" name="option1[response]" placeholder="The Hulks feet"></input>
 								</div>
 								<div class="form-group">
 									<label class="control-label" for="option2">Answer 2:</label>
@@ -230,25 +192,6 @@
 				</div>
 			</div><!--End of find-poll modal-->
 
-			<!--Submit Vote Modal
-			<div class="modal fade" id="submitVoteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-				<div class="modal-dialog modal-sm" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							<h4 class="modal-title" id="submitVoteLabel">Question: </h4>
-						</div>
-						<div class="modal-body">
-							<form class="form-group" id="find-poll-form">
-								<input type="text" class="form-control" id="poll-search-bar" name="poll[question]" placeholder="Who killed Roger Rabbit...?"></input>
-
-								<button type="submit" class="btn btn-primary find-poll-btn">Submit</button>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>End of submit-poll modal-->
-
 			<picture class"bgimage">
 				<img class="bgimage" src="http://rack.1.mshcdn.com/media/ZgkyMDE1LzEwLzMwLzE4L3R3aXR0ZXJwb2xsLjgwYzZmLmpwZwpwCXRodW1iCTk1MHg1MzQjCmUJanBn/5e43b398/e53/twitter-polls.jpg" height=250px>
 			</picture>
@@ -259,10 +202,10 @@
 				</div>
 			</div>
 
-			<div id="chart_div">
-					<div class="poll-id"></div>
-					<button type="submit" class="btn btn-default find-poll-modal" data-toggle="modal" data-target="#findPollModal">Find another...</button>
-			</div>
+			<div class="poll-id"></div>
+			<div id="piechart"></div>
+
+			<button type="submit" class="btn btn-default find-poll-modal" data-toggle="modal" data-target="#findPollModal">Find another...</button>
 
 			<div class="poll-buttons">
 				<button type="submit" class="btn btn-default create-poll" data-toggle="modal" data-target="#createPollModal">Create a Poll</button>
@@ -273,21 +216,31 @@
 				There you go buddy...<br />
 			</div>
 
+			<!--Submit a new Vote section-->
 			<div class="user-vote">
-				<div class="user-vote-poll"></div>
-				<form class="form-block" id="update-poll-form">
-					<div class="form-group">
-						<div class="radio-inline">
-							 <input type="radio" class="form-control" id="selectOption1" name="poll[options0]" autocomplete="off" value="0">Option1</input>
-							 <input type="radio" class="form-control" id="selectOption2" name="poll[options1]" autocomplete="off" value="1">Option2</input>
-							 <label>
-						</div>
-					</div>
-				</form>
-			</div>
+				<div class="row">
+				  <div class="col-lg-4">
+				    <div class="input-group">
+				      <span class="input-group-addon">
+				        <input type="checkbox" aria-label="vote.option1">
+				      </span>
+				      <label class="form-control" id="user-vote-option0"></label>
+				    </div><!-- /input-group -->
+				  </div><!-- /.col-lg-4 -->
+				  <div class="col-lg-4">
+				    <div class="input-group">
+				      <span class="input-group-addon">
+				        <input type="checkbox" aria-label="vote.option2">
+				      </span>
+				      <label class="form-control" id="user-vote-option1"></label>
+				    </div><!-- /input-group -->
+				  </div><!-- /.col-lg-4 -->
+					<button type="submit" class="btn btn-default update-poll">Submit Vote</button>
+				</div><!-- /.row -->
+			</div><!--End of User Vote section-->
 
 			<div class="user-polls">
-				Created Polls:
+				<label>Created Polls: </label>
 			</div>
 
 			<footer>

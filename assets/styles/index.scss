@@ -43,6 +43,25 @@ body {
   padding-bottom: .6em;
 }
 
+.find-poll-modal {
+  margin-left: 45%;
+}
+
+#piechart {
+  margin-left: 25%;
+}
+
+.poll-id {
+  font-size: 1.4em;
+  text-align: center;
+}
+
+.update-poll {
+  font-size: 1.4em;
+  text-align: center;
+  margin-left: 40%;
+}
+
 .brand {
     height: 60px;
     width: 70px;
@@ -106,7 +125,7 @@ h3{
 
 .title {
   font-size: 3em;
-  text-align: left;
+  text-align: center;
   font-style: italic;
   text-decoration: underline;
   padding-left: 2em;
