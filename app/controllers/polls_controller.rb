@@ -5,6 +5,8 @@ class PollsController < ProtectedController
   def index
     @polls = if params[:search_key].present?
       Poll.search_by_key(params[:search_key])
+    elsif params[:search_user].present?
+        Poll.search_by_user(params[:search_user])
     else
       Poll.all
     end
@@ -85,6 +87,6 @@ private
   end
 
   def poll_params
-    params.require(:poll).permit(:question)
+    params.require(:poll).permit(:question, :created_by)
   end
 end

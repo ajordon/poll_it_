@@ -14,4 +14,13 @@ class Poll < ActiveRecord::Base
       Poll.where({ question: key })
     end
   end
+
+
+  def self.search_by_user(user)
+    if user
+      Poll.where({ created_by: user })
+    end
+  end
+
+
 end

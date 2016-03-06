@@ -41,6 +41,7 @@ const signOutComplete = function() {
   $('.sign-out1').hide();
   $('.change-password1').hide();
   $('.intro').show();
+  $('.piechart').hide();
 };
 
 module.exports = {

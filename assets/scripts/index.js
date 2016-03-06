@@ -62,6 +62,23 @@ let displayPollUrl = function(data) {
   $('.poll-link').innerHTML = myApp.baseUrl + "/polls/" + data.poll.id;
 };
 
+let showUserPolls = function(user) {
+  let pollListingTemplate = require('./poll-listing.handlebars');
+  $.ajax({
+    url: myApp.baseUrl + '/polls?search_user=' + user.id ,
+    method: 'GET',
+    dataType: 'json'
+ }).done(function(data) {
+    myApp.poll = data.poll;
+    console.log(data);
+ }).fail(function(jqxhr) {
+    console.error(jqxhr);
+ });
+
+ let polls = myApp.poll;
+ $('.user-polls').append(pollListingTemplate({polls}));
+};
+
 //---------------------Webpage flow---------------------
 let createPollComplete = function(data) {
   $('.intro').hide();
@@ -72,6 +89,7 @@ let createPollComplete = function(data) {
   $('.find-poll').hide();
   $('.create-poll').hide();
   $('.user-vote').show();
+  $('.user-vote').text(data.poll.question);
   $('#user-vote-option0').append(data.poll.options[0].response); // FIX ME - IDs must match HTML
   $('#user-vote-option1').append(data.poll.options[1].response); // FIX ME
 };
@@ -94,24 +112,9 @@ let signInComplete = function() {
   // SO FAR SO GOOD
   // $('#option1').hide();
   // BROKEN!!
-
-  let pollListingTemplate = require('./poll-listing.handlebars');
-  // let formData = new FormData();
-   $.ajax({
-    url: myApp.baseUrl + '/polls?search_key=' + myApp.user.id,
-    method: 'GET',
-      headers: {
-        Authorization: 'Token token=' + myApp.user.token,
-      }
-  }).done(function(data) {
-   myApp.user = data.user;
-  }).fail(function(jqxhr) {
-   console.error(jqxhr);
-  });
-
-  let polls = myApp.user.polls;
-  $('.user-polls').append(pollListingTemplate({polls}));
 };
+
+
 
 //---------------------When the webpage is finished loading---------------------
 $(document).ready(() => {
@@ -141,8 +144,7 @@ $(document).ready(() => {
     }).done(function(data) {
       myApp.poll = data.poll;
       console.log(data);
-      createPollComplete(data);
-      $('.user-vote').show();
+      createPollComplete(myApp.poll);
     }).fail(function(jqxhr) {
       console.error(jqxhr);
     });
@@ -217,6 +219,7 @@ $(document).ready(() => {
     }).done(function(data) {
       myApp.user = data.user;
       signInComplete();
+      showUserPolls(myApp.user);
     }).fail(function(jqxhr) {
       console.error(jqxhr);
     });

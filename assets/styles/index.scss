@@ -20,13 +20,14 @@ body {
 .user-vote {
   width: 100%;
   display: inline-block;
+  text-align: center;
 }
 
 .bgimage {
   background-color: transparent;
-  width: 50%;
+  width: 55%;
   position: relative;
-  margin-left: 18em;
+  margin-left: 17em;
   padding-top: 2em;
 }
 
@@ -59,7 +60,9 @@ body {
 .update-poll {
   font-size: 1.4em;
   text-align: center;
-  margin-left: 40%;
+  margin-left: 15%;
+  margin-right: 15%;
+  margin-top: 1.2em;
 }
 
 .brand {
@@ -123,6 +126,11 @@ h3{
   border-radius: 3px;
 }
 
+.voting-row {
+  margin-left: 25%;
+  padding: 1em;
+}
+
 .title {
   font-size: 3em;
   text-align: center;
@@ -175,12 +183,12 @@ button {
   background-color: $box-hover;
 }
 
-#chart_div {
-  text-align: center;
-  margin: 0 auto;
-  width: 50%;
-  height: 35%;
-}
+// #chart_div {
+//   text-align: center;
+//   margin: 0 auto;
+//   width: 50%;
+//   height: 35%;
+// }
 
 .poll {
   font-size: 1.4em;
