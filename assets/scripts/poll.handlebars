@@ -1,7 +1,8 @@
-<div>
-  {{#if votes}}
-    {{votes.count}}
-  {{else}}
-    No one voted yet :(
-  {{/if}}
+<div class="poll-row">
+  <td>{{question}}</td>
+  <td>{{votes.length}}</td>
+  <div class="each-polls col-md-6" data={{id}}>
+    <td><button type="submit" class="btn btn-default hb-view" data-target="view-user-poll" data-id="{{id}}">View</button></td>
+    <td><button type="submit" class="btn btn-default hb-delete" data-target="delete-user-poll" data-id="{{id}}">Delete</button></td>
+  </div>
 </div>

@@ -63,20 +63,23 @@ let displayPollUrl = function(data) {
 };
 
 let showUserPolls = function(user) {
-  let pollListingTemplate = require('./poll-listing.handlebars');
   $.ajax({
     url: myApp.baseUrl + '/polls?search_user=' + user.id ,
     method: 'GET',
     dataType: 'json'
  }).done(function(data) {
-    myApp.poll = data.poll;
+    myApp.poll = data.polls;
+    pollsTemplate(myApp.poll);
     console.log(data);
  }).fail(function(jqxhr) {
     console.error(jqxhr);
- });
+  });
+};
 
- let polls = myApp.poll;
- $('.user-polls').append(pollListingTemplate({polls}));
+let pollsTemplate = function(data) {
+   let polls = myApp.poll;
+   let pollListingTemplate = require('./poll-listing.handlebars');
+   $('.user-polls').append(pollListingTemplate({polls}));
 };
 
 //---------------------Webpage flow---------------------
@@ -168,17 +171,18 @@ $(document).ready(() => {
   });
 
   //----------------Delete Poll----------------
-  $('.delete-poll').on('submit', function(e) {
+  $('.user-polls').on('click', 'hb-delete', function(e) {
     e.preventDefault();
+    let id = $(e.target).attr("data-id");
     $.ajax({
-      url: myApp.baseUrl + '/polls/' + myApp.poll.id,
+      url: myApp.baseUrl + '/polls/' + id,
       method: 'DELETE',
       headers: {
         Authorization: 'Token token=' + myApp.user.token,
-      }
+      },
     }).done(function() {
-      myApp.poll = data.poll;
-      UI.deletePollComplete();
+      showUserPolls(myApp.user);
+      UI.deletePollComplete;
     }).fail(function(jqxhr) {
       console.error(jqxhr);
     });
@@ -284,4 +288,11 @@ $(document).ready(() => {
       console.error(jqxhr);
     });
   });
+
+  //----------------View Poll----------------
+  $('.user-polls').on('click', 'hb-view', function(e) {
+    e.preventDefault();
+    let id = $(e.target).attr("data-id");
+  });
+
 });

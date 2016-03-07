@@ -68,7 +68,7 @@ class PollsController < ProtectedController
 private
   def set_poll
     @poll = if current_user
-      current_user.poll.find(params[:id])
+      current_user.poll.find(params[:created_by])
     else
       Poll.find(params[:id])
     end
