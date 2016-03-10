@@ -11,4 +11,6 @@ Rails.application.routes.draw do
     resources :votes, only: [:create, :index]
     resources :options, only: [:create, :index, :show, :update]
   end
+
+  # resources :votes, except: [:new, :create, :index]
 end

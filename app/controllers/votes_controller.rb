@@ -1,6 +1,7 @@
-class VotesController < ApplicationController
-  before_filter :set_vote, only: [:index, :create, :destroy]
+class VotesController < ProtectedController
+  before_filter :set_vote, only: [:index, :destroy]
   before_filter :set_poll, only: [:index, :create]
+  skip_before_action :authenticate, only: [:create]
 
   def create
     @vote = Vote.new(vote_params)
@@ -34,6 +35,6 @@ class VotesController < ApplicationController
     end
 
     def vote_params
-      params.require(:vote).permit(:option_id, :poll_id)
+      params.require(:vote).permit(:option_id)
     end
 end

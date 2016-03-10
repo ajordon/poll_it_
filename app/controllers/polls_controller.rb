@@ -1,6 +1,6 @@
 class PollsController < ProtectedController
   # before_action :set_option, only: [:show]
-  skip_before_action :authenticate, only: [:index, :show, :create]
+  skip_before_action :authenticate, only: [:index, :create]
 
   def index
     @polls = if params[:search_key].present?
@@ -15,8 +15,9 @@ class PollsController < ProtectedController
   end
 
   def show
-    @poll = if current_user
-      current_user.polls.find([:created_by])
+    user = get_user
+    @poll = if user
+      user.polls.find([:created_by])
     else
       Poll.find(params[:id])
     end
@@ -41,14 +42,18 @@ class PollsController < ProtectedController
   end
 
   def update
-    @poll = if current_user
-      current_user.poll.find(params[:id])
-    else
-      Poll.find(params[:id])
-    end
+
+    # @poll = if user
+    #   user.polls.find(params[:created_by])
+    # else
+      # Poll.find(params[:id])
+    # end
+    @poll = current_user.polls.find(params[:id])
 
     if @poll.update(poll_params)
-      head :no_content
+      # @poll.options.update(option1_params)
+      # @poll.options.update(option2_params)
+      render json: @poll, status: :ok
     else
       render json: @poll.errors, status: :unprocessable_entity
     end
@@ -65,30 +70,27 @@ class PollsController < ProtectedController
   end
 
 private
-  def set_poll
-    @poll = if current_user
-      current_user.poll.find(params[:created_by])
-    else
-      Poll.find(params[:id])
-    end
-  end
+  # def set_poll
+  #   @poll = if current_user
+  #     current_user.poll.find(params[:created_by])
+  #   else
+  #     Poll.find(params[:id])
+  #   end
+  # end
 
   def get_user
     User.find_by token: request.headers["HTTP_AUTHORIZATION"].split('=')[-1]
   end
-  # def set_option
-  #   Options.find(params[:poll_id])
-  # end
 
   def option1_params
-    params.require(:option1).permit(:response, :poll_id)
+    params.require(:option1).permit(:response)
   end
 
   def option2_params
-    params.require(:option2).permit(:response, :poll_id)
+    params.require(:option2).permit(:response)
   end
 
   def poll_params
-    params.require(:poll).permit(:question, :created_by)
+    params.require(:poll).permit(:question)
   end
 end
