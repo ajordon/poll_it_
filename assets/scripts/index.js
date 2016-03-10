@@ -173,13 +173,13 @@ $(document).ready(() => {
      console.error(jqxhr);
    });
   });
-//  $('.delete-poll-form').on('click', 'hb-delete', function(e) {
+
   //-----------------------------------------
   //----------------Delete Poll----------------
   $('.delete-poll-form').on('click', function(e) {
     e.preventDefault();
     $.ajax({
-      url: myApp.baseUrl + '/polls/' + myApp.tmpd_id,
+      url: myApp.baseUrl + '/polls/' + myApp.deletepoll_id,
       method: 'DELETE',
       headers: {
         Authorization: 'Token token=' + myApp.user.token,
@@ -194,13 +194,13 @@ $(document).ready(() => {
 
   //-----------------------------------------
   //----------------Update Poll----------------
-  $('.update-poll-form').on('click', function(e) {
-    e.preventDefault();
+  $('.update-poll-form').on('submit', function(e) {
     debugger;
+    e.preventDefault();
     let formData = new FormData(e.target);
     console.log(formData);
     $.ajax({
-      url: myApp.baseUrl + '/polls/' + myApp.tmpp_up_id,
+      url: myApp.baseUrl + '/polls/' + myApp.updatepoll_id,
       method: 'PATCH',
       headers: {
         Authorization: 'Token token=' + myApp.user.token,
@@ -209,6 +209,7 @@ $(document).ready(() => {
       processData: false,
       data: formData,
     }).done(function(data) {
+      console.log(data);
       myApp.poll.votes = data.poll.votes;
       showUserPolls(data.user);
       // updateDataChart(data.polls[0]);
@@ -219,33 +220,28 @@ $(document).ready(() => {
     });
   });
 
-  //-----------------------------------------
-  //----------------View Poll----------------
-  // $('.user-polls').on('submit', 'data-control="hb-view-btn', function(e) {
-  //   e.preventDefault();
-  //   let id = $(e.target).attr("data-id");
-  // });
-
-  //-----------------------------------------
-  //-----------------------------------------
+  //-----------------------------HANDLEBARS EVENTS------------------------------
+  //---------------------------------------------------------------------------
+  //---------------------------------------------------------------------------
   $('.user-polls').on('click', '.hb-delete-poll', function(e) {
     e.preventDefault();
-    myApp.tmpd_id = $(e.target).attr("data-id");
+    myApp.deletepoll_id = $(e.target).attr("data-id");
   });
 
   $('.user-polls').on('click', '.hb-update-poll', function(e) {
     e.preventDefault();
-    myApp.tmpp_up_id = $(e.target).attr("data-id");
+    myApp.updatepoll_id = $(e.target).attr("data-id");
   });
 
   //-----------------------------------------
   //-----------------------------------------
   $('.user-polls').on('click', '.hb-view-poll', function(e) {
+
     e.preventDefault();
-    myApp.tmpp_id = $(e.target).attr("data-id");
+    myApp.viewpoll_id = $(e.target).attr("data-id");
     debugger;
     $.ajax({
-     url: myApp.baseUrl + '/polls?search_key=' + myApp.tmpp_id,
+     url: myApp.baseUrl + '/polls?search_key=' + myApp.viewpoll_id,
      method: 'GET',
      dataType: 'json'
    }).done(function(data) {
@@ -257,9 +253,13 @@ $(document).ready(() => {
      console.error(jqxhr);
    });
   });
-
   //----------------------------------------------------------------------------
-  //---------------------------User Manager-------------------------------------
+  //----------------------------------------------------------------------------
+  //----------------------------------------------------------------------------
+  //-----------------------------User Manager-----------------------------------
+  //----------------------------------------------------------------------------
+  //----------------------------------------------------------------------------
+  //----------------------------------------------------------------------------
   //----------------SIGN IN----------------
   $('#signin-form').on('submit', function(e) {
     e.preventDefault();

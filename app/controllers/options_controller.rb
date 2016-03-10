@@ -1,6 +1,6 @@
 class OptionsController < ApplicationController
   before_filter :set_option, only: [:destroy, :create]
-  before_filter :set_poll, only: [:index, :show, :create]
+  before_filter :set_poll, only: [:index, :show, :create, :update]
 
   def create
     @option = Option.new(option_params)
@@ -29,6 +29,14 @@ class OptionsController < ApplicationController
     head :no_content
   end
 
+  def update
+    if @options.update(option_params)
+      render json: @option, status: :ok
+    else
+      render json: @option.errors, status: :unprocessable_entity
+    end
+  end
+
   private
     def set_poll
       @poll = Poll.find(params[:poll_id])
@@ -41,4 +49,9 @@ class OptionsController < ApplicationController
     def vote_params
       params.require(:option).permit(:response, :poll_id)
     end
+
+    def option_params
+      params.require(:option).permit(:response, :poll_id)
+    end
+
 end

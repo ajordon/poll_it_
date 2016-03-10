@@ -6,9 +6,9 @@ Rails.application.routes.draw do
 
   resources :users, only: [:index, :show]
 
-  resources :polls, only: [:index, :show]
+  resources :polls, only: [:index, :show, :update]
   resources :polls, except: [:edit, :new, :index, :show] do
     resources :votes, only: [:create, :index]
-    resources :options, only: [:create, :index, :show]
+    resources :options, only: [:create, :index, :show, :update]
   end
 end
