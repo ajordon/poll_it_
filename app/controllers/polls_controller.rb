@@ -1,6 +1,6 @@
 class PollsController < ProtectedController
   # before_action :set_option, only: [:show]
-  skip_before_action :authenticate, only: [:index, :show, :update, :create]
+  skip_before_action :authenticate, only: [:index, :show, :create]
 
   def index
     @polls = if params[:search_key].present?
@@ -25,14 +25,13 @@ class PollsController < ProtectedController
   end
 
   def create
-    @poll = if current_user
-      current_user.polls.build(poll_params)
-    else
-      Poll.new(poll_params)
-    end
-
+    @poll = Poll.new(poll_params)
     @poll.options.new(option1_params)
     @poll.options.new(option2_params)
+
+    if (get_user)
+      @poll.created_by = get_user
+    end
 
     if @poll.save
       render json: @poll, status: :created
@@ -56,8 +55,8 @@ class PollsController < ProtectedController
   end
 
   def destroy
-    @poll = if current_user
-      current_user.poll.find(params[:id])
+    @poll = current_user.polls.find(params[:id])
+    if @poll
       @poll.destroy
       head :no_content
     else
@@ -74,6 +73,9 @@ private
     end
   end
 
+  def get_user
+    User.find_by token: request.headers["HTTP_AUTHORIZATION"].split('=')[-1]
+  end
   # def set_option
   #   Options.find(params[:poll_id])
   # end

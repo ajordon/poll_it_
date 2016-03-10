@@ -1,8 +1,10 @@
 <div class="poll-row">
+  <td>{{id}}</td>
   <td>{{question}}</td>
   <td>{{votes.length}}</td>
   <div class="each-polls col-md-6" data={{id}}>
-    <td><button type="submit" class="btn btn-default hb-view" data-target="view-user-poll" data-id="{{id}}">View</button></td>
-    <td><button type="submit" class="btn btn-default hb-delete" data-target="delete-user-poll" data-id="{{id}}">Delete</button></td>
+    <td><button class="btn btn-default hb-u-poll" data-control="hb-view-btn" data-id="{{id}}">View</button></td>
+    <td><button type="submit" class="btn btn-default hb-update-poll" data-control="hb-update-btn" data-target="#updatePollModal" data-id="{{id}}" data-toggle="modal">Update</button></td>
+    <td><button type="submit" class="btn btn-default hb-delete-poll" data-control="hb-delete-btn" data-target="#deletePollModal" data-id="{{id}}" data-toggle="modal">Delete</button></td>
   </div>
 </div>

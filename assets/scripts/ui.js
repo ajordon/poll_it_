@@ -10,6 +10,7 @@ const findPollComplete = function() {
   $('.piechart').show();
   $('.find-poll-modal').show();
   $('.user-vote').hide();
+  $('.vote-on-poll-modal').hide();
 };
 
 const deletePollComplete = function() {
@@ -42,6 +43,11 @@ const signOutComplete = function() {
   $('.change-password1').hide();
   $('.intro').show();
   $('.piechart').hide();
+  $('.create-poll').hide();
+  $('.user-polls').hide();
+  $('.user-vote').hide();
+  $('.find-poll').show();
+  $('.create-poll').show();
 };
 
 module.exports = {

@@ -17,6 +17,18 @@ body {
   font-size: 14px;
 }
 
+td {
+  padding: 1em;
+}
+
+.poll-row {
+  border: 2px solid $background;
+}
+
+.user-polls {
+  margin-left: 25%;
+  font-size: 1.2em;
+}
 .user-vote {
   width: 100%;
   display: inline-block;

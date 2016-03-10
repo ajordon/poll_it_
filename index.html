@@ -192,6 +192,24 @@
 				</div>
 			</div><!--End of find-poll modal-->
 
+			<!--Delete Poll Modal-->
+			<div class="modal fade" id="deletePollModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="myModalLabel">Delete Poll</h4>
+						</div>
+						<div class="modal-body">
+							<h4>Are you sure you want to delete this&hellip;?</h4>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-default delete-poll-form">Delete</button>
+						</div>
+					</div>
+				</div>
+			</div><!--End of Delete Poll modal-->
+
 			<picture class"bgimage">
 				<img class="bgimage" src="http://rack.1.mshcdn.com/media/ZgkyMDE1LzEwLzMwLzE4L3R3aXR0ZXJwb2xsLjgwYzZmLmpwZwpwCXRodW1iCTk1MHg1MzQjCmUJanBn/5e43b398/e53/twitter-polls.jpg" height=250px>
 			</picture>
@@ -206,6 +224,7 @@
 			<div id="piechart"></div>
 
 			<button type="submit" class="btn btn-default find-poll-modal" data-toggle="modal" data-target="#findPollModal">Find another...</button>
+			<button type="submit" class="btn btn-default vote-on-poll-modal" data-toggle="modal" data-target="#VoteModal">Vote</button>
 
 			<div class="poll-buttons">
 				<button type="submit" class="btn btn-default create-poll" data-toggle="modal" data-target="#createPollModal">Create a Poll</button>
@@ -213,35 +232,55 @@
 			</div>
 
 			<div class="poll-link">
-				There you go buddy...<br />
 			</div>
 
 			<!--Submit a new Vote section-->
 			<div class="user-vote">
-				<div class="voting-row">
-				  <div class="col-lg-4">
-				    <div class="input-group">
-				      <span class="input-group-addon">
-				        <input type="checkbox" aria-label="vote.option1">
-				      </span>
-				      <label class="form-control" id="user-vote-option0"></label>
-				    </div><!-- /input-group -->
-				  </div><!-- /.col-lg-4 -->
-				  <div class="col-lg-4">
-				    <div class="input-group">
-				      <span class="input-group-addon">
-				        <input type="checkbox" aria-label="vote.option2">
-				      </span>
-				      <label class="form-control" id="user-vote-option1"></label>
-				    </div><!-- /input-group -->
-				  </div><!-- /.col-lg-4 -->
-				</div><!-- /.row -->
-				<button type="submit" class="btn btn-default update-poll">Submit Vote</button>
+			  <div class="col-lg-4">
+					<p id='question'></p>
+				  <form class="form-block" id="update-poll-form">
+						<p>
+							<label for='#option0' id='label0'></label>
+							<input type="radio" class="form-control user-vote-option0" id='option0' name='response' autocomplete="off">
+							<label for='#option1' id='label1'></label>
+				      <input type="radio" class="form-control user-vote-option1" id='option1' name='response' autocomplete="off">
+						</p>
+						<button type="submit" class="btn btn-default update-poll">Submit Vote</button>
+					</form>
+				</div><!-- /.col-lg-4 -->
 			</div><!--End of User Vote section-->
 
 			<table class="user-polls">
-				<label>Created Polls: </label>
 			</table>
+
+			<!--Update a Poll Modal-->
+			<div class="modal fade" id="updatePollModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="myModalLabel">Update a Poll</h4>
+						</div>
+						<div class="modal-body">
+							<form class="form-block" id="update-poll-form">
+								<div class="form-group">
+									<label class="control-label" for="poll-question-form">Whats your question?</label>
+									<textarea class="form-control" id="poll-question-form" name="poll[question]" placeholder="What smells worse...?"></textarea>
+								</div>
+								<div class="form-group">
+									<label class="control-label" for="option1">Answer 1:</label>
+									<input type="text" class="form-control" id="option1" name="option1[response]" placeholder="The Hulks feet"></input>
+								</div>
+								<div class="form-group">
+									<label class="control-label" for="option2">Answer 2:</label>
+									<input type="text" class="form-control" id="option2" name="option2[response]" placeholder="Iron Mans' armor"></input>
+								</div>
+								<button type="submit" class="btn btn-primary update-poll-form">Update</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div><!--End Make a poll modal-->
 
 			<footer>
 				<h3>Copyright &copy; of Aaron Jordon</h3>
